@@ -25,7 +25,7 @@ void TaskDivision(std::ostream& os, std::istream& is)
 	{
 		if (IsDivisionWithoutRemainder(cur_number, n_number) && IsDivisionWithoutRemainder(cur_number, m_number))
 		{
-			os << cur_number << std::endl;
+			os << cur_number;
 			return;
 		}
 		cur_number++;

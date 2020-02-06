@@ -38,3 +38,8 @@ void TaskAngleReverse(std::ostream& os, std::istream& is)
 		os << std::endl;
 	}
 }
+
+int f(int x)
+{
+	return x * x ;
+}
