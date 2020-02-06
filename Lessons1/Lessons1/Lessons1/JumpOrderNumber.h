@@ -3,14 +3,13 @@
 
 void TaskJumpNumberOrder(std::ostream& os, std::istream& is)
 {
-	int number_of_operation = 10;
-	int up_counter = number_of_operation;
-	
-	for (int down_counter = number_of_operation; down_counter > 0; )
+	static const int kNumberOfOperation = 10;
+
+	os << 10 << std::endl;
+	for (int i = 1; i < 9; i++)
 	{
-		os << down_counter << std::endl;
-		down_counter--;
-		up_counter++;
-		os << up_counter << std::endl;
+		os << 10 + i << std::endl;
+		os << 10 - i << std::endl;
 	}
+	os << 20 << std::endl;
 }

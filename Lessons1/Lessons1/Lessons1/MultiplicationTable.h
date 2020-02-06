@@ -5,11 +5,10 @@ void TaskMultiplicationTable(std::ostream& os, std::istream& is)
 {
 	for (int i = 1; i <= 9; i++)
 	{
-		for (int y = 1; y <= 9; y++)
+		for (int j = 1; j <= 9; j++)
 		{
-			int z = y * i;
-			os << i << " * " << y << " = " << z << std::endl;
-			if (y == 9) os << std::endl;
+			os << i << " * " << j << " = " << i * j << std::endl;
 		}
+		os << std::endl;
 	}
 }

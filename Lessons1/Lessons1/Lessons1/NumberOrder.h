@@ -4,27 +4,26 @@
 void TaskNumberOrder(std::ostream& os, std::istream& is)
 {
 	int value = 0;
-	os << "Input value" << std::endl;
 	is >> value;
 
-	int count1 = 0;
-	int count2 = 0;
-	int out_value = 0;
-	int revers_out_value = value*2;
+	//for (int i = 1; i <= value; i++)
+	//{
+	//	os << i << std::endl;
+	//}
+	//for (int i = value*2; i >= value; i--)
+	//{
+	//	os << i << std::endl;
+	//}
 
-	while (true)
+	for (int i = 0; i <= 2*value + 1; i++)
 	{
-		if(count1 <= value)
+		if (i <= value)
 		{
-			os << out_value << std::endl;
-			out_value++;
-			count1++;
+			os << i << std::endl;
 		}
-		else if(count2 <= value)
+		else
 		{
-			os << revers_out_value << std::endl;
-			revers_out_value--;
-			count2++;
+			os << 3 * value - i + 1 << std::endl;
 		}
 	}
 }
