@@ -6,6 +6,9 @@
 #include "TestHelper.h"
 
 #include "../Lesson2/HomeWork1.h"
+#include "../Lesson2/MaxElement.h"
+#include "../Lesson2/SwapMaxMin.h"
+
 TEST(ArrayTest, Task0_Homework)
 {
 	auto test = TestHelper::GetTestArrayCompare(Task0_ArrayIncrease);
@@ -25,7 +28,7 @@ TEST(ArrayTest, Task1_MaxElement)
 	 * Функция должна вернуть максимальный элемент массива
 	 */
 	
-	auto test = TestHelper::GetTestReturnValue(DummyReturnValue); // Вместо DummyReturnValue всунь имя своей функции. Как в тесте Task0_Homework
+	auto test = TestHelper::GetTestReturnValue(GetReturnMaxElement); // Вместо DummyReturnValue всунь имя своей функции. Как в тесте Task0_Homework
 	test.ExpectEq({ 4, 7, 1, 9, 12, 5, 3 }, 12);
 	test.ExpectEq({ -4, 8, 1000, 3 }, 1000 );
 }
@@ -38,7 +41,7 @@ TEST(ArrayTest, Task2_SwapMaxMin)
 	 * Гарантируется что все элементы в массиве разные.
 	 */
 
-	auto test = TestHelper::GetTestArrayCompare(DummyCheckArray);
+	auto test = TestHelper::GetTestArrayCompare(SwapElement);
 	test.ExpectEq({ 4, 7, 1, 9, 12, 5, 3 }, { 4, 7, 12, 9, 1, 5, 3 });
 	test.ExpectEq({ -4, 8, 1000, 3 }, { 1000, 8, -4, 3 });
 }

@@ -23,5 +23,26 @@
     <ClInclude Include="HomeWork1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MaxElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapMaxMin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftToRighth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReversMassive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zeroing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SumElements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AllTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

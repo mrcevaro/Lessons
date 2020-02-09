@@ -127,7 +127,14 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllTask.h" />
+    <ClInclude Include="MaxElement.h" />
     <ClInclude Include="HomeWork1.h" />
+    <ClInclude Include="ReversMassive.h" />
+    <ClInclude Include="ShiftToRighth.h" />
+    <ClInclude Include="SumElements.h" />
+    <ClInclude Include="SwapMaxMin.h" />
+    <ClInclude Include="Zeroing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
