@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllTask.h" />
+    <ClInclude Include="Eraser.h" />
     <ClInclude Include="MaxElement.h" />
     <ClInclude Include="HomeWork1.h" />
     <ClInclude Include="ReversMassive.h" />

@@ -11,30 +11,22 @@ void ShiftElements(int* arr, int n)
 
 	std::cout << std::endl;
 
-	int count = n-1;
+	int count = 0;
 	int temp = 0;
 	int temp2 = 0;
 
-	
-	for (int i = 0; i < n - 1 ; i++)
+	int* arr2 = arr;
+	for (int i = n - 1; i > 0 ;i--)
 	{
-	
-		for (int j = n - 1; j >= 0; j--) 
-		{
-arr[j] = arr[i];		
-temp2 =  arr[j];
-			
-		}
 		
-		
-		arr[i] = temp2;
-
+		arr2[count]= arr[i];
+		count++;
 	}		
 
 
 	for (int i = 0; i < n; i++)
 	{
-		std::cout << arr[i] << std::endl;
+		std::cout << arr2[i] << std::endl;
 	}
 }
 

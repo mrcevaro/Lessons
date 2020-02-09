@@ -8,6 +8,7 @@
 #include "../Lesson2/HomeWork1.h"
 #include "../Lesson2/MaxElement.h"
 #include "../Lesson2/SwapMaxMin.h"
+#include "../Lesson2/Eraser.h"
 
 TEST(ArrayTest, Task0_Homework)
 {
@@ -66,7 +67,7 @@ TEST(ArrayTest, Task4_Eraser)
 	 * Занулить все элементы массива, который строго больше A
 	 */
 
-	auto test = TestHelper::GetTestArrayCompare(DummyCheckArray);
+	auto test = TestHelper::GetTestArrayCompare(Erase);
 	test.ExpectEq({ 0, 1, 2, 3, 4, 5, 6 }, { 0, 1, 2, 3, 0, 0, 0 }); // max = 6, min = 0. A = 3
 	test.ExpectEq({ 3, 9, 5, 8, 2, 1, 9 }, { 3, 0, 5, 0, 2, 1, 0 }); // max = 9, min = 1, A = 5
 }

@@ -6,20 +6,22 @@
 #include "Zeroing.h"
 #include "SumElements.h"
 #include "AllTask.h"
+#include "Eraser.h"
 
 int main()
 {
 	//HomeWork1();
 	//SearchMaxElement();
 	//SwapMaxMinElement();
-	//ShiftToRightElements();
+	//EraserElements();
+	ShiftToRightElements();
 	//ReversElements();
 	//ZeroingElements();
 	//SumElements();
 	//IndexFour();
 	//ZeroingElementsAfterFive();
 	//CoutZeroElements();
-	CountTransformZeroToOne();
+	//CountTransformZeroToOne();
 
 
 	std::system("pause");

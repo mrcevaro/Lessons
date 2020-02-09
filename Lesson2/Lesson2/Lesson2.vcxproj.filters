@@ -44,5 +44,8 @@
     <ClInclude Include="AllTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Eraser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
