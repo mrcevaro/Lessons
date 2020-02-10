@@ -2,17 +2,20 @@
 #include <iostream>
 
 
-int GetIndexFour(int* arr, int n)
+void GetIndexFour(int* arr, int n)
 {
+	int index_of_four = -1;
+
 	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] == 4)
 		{
-			return i;
+			index_of_four = i;
+			break;
 		}
-		
 	}
-	return -1;
+
+	std::cout << index_of_four;
 }
 
 void IndexFour()
@@ -27,7 +30,7 @@ void IndexFour()
 
 	std::cout << std::endl;
 
-	std::cout << GetIndexFour(array, array_size) << std::endl;
+	GetIndexFour(array, array_size);
 }
 
 
@@ -40,13 +43,22 @@ void PrintZeroingElementsAfterFive(int* arr, int n)
 
 	std::cout << std::endl;
 
+	// 8 7 6 5 9 7 4
+	// 8 7 6 5 0 0 0 
+
 	for (int i = 0; i < n; i++)
 	{
-		if (arr[i] == 5)
+		if (arr[i] != 5)
 		{
-			for (int j = i + 1; j < n; j++)
+			continue;
+		}
+
+		for (int j = i + 1; j < n; j++)
+		{
 			arr[j] = 0;
 		}
+	
+		break;
 	}
 
 	for (int i = 0; i < n; i++)
@@ -67,16 +79,15 @@ void ZeroingElementsAfterFive()
 
 int GetCountZero(int* arr, int n)
 {
-	int count = 0;
+	int count_of_zero = 0;
 	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] == 0)
 		{
-			count++;
+			count_of_zero++;
 		}
-
 	}
-	return count;
+	return count_of_zero;
 }
 
 void CoutZeroElements()
@@ -95,16 +106,16 @@ void CoutZeroElements()
 
 int GetCountTransformZeroToOne(int* arr, int n)
 {
-	int count = 0;
-	for (int i = 0; i < n; i++)
+	int count_of_transform = 0;
+	for (int i = 0; i < n - 1; i++)
 	{
-		if (arr[i] == 0 && arr[i+1] == 1)
+		if (arr[i] == 0 && arr[i + 1] == 1)
 		{
-			count++;
+			count_of_transform++;
 		}
 
 	}
-	return count;
+	return count_of_transform;
 }
 
 void CountTransformZeroToOne()

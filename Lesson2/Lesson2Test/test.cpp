@@ -31,7 +31,7 @@ TEST(ArrayTest, Task1_MaxElement)
 	
 	auto test = TestHelper::GetTestReturnValue(GetReturnMaxElement); // Вместо DummyReturnValue всунь имя своей функции. Как в тесте Task0_Homework
 	test.ExpectEq({ 4, 7, 1, 9, 12, 5, 3 }, 12);
-	test.ExpectEq({ -4, 8, 1000, 3 }, 1000 );
+	test.ExpectEq({ 4, 8, 1000, 3 }, 1000 );
 }
 
 TEST(ArrayTest, Task2_SwapMaxMin)
