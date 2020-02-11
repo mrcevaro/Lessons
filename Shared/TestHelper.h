@@ -1,3 +1,4 @@
+﻿//Hello Unicode World ☺. ☻.
 #pragma once
 #include "pch.h"
 
