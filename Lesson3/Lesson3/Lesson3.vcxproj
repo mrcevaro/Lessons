@@ -127,7 +127,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DynamicMemory.h" />
-    <ClInclude Include="Sort.h" />
+    <ClInclude Include="Sorts\BubbleSort.h" />
+    <ClInclude Include="Sorts\SelectionSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,10 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sort.h">
+    <ClInclude Include="DynamicMemory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicMemory.h">
+    <ClInclude Include="Sorts\SelectionSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sorts\BubbleSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
