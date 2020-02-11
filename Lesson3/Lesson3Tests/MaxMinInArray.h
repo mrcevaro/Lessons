@@ -3,7 +3,7 @@
 
 #include "../../Shared/TestHelper.h"
 
-int DummyFunction(int* arr, int n) {}
+int DummyFunction(int* arr, int n) { return 0; }
 
 // Внимание. Задачи из этого файла делай в одном хидере
 

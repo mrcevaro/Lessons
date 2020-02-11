@@ -7,8 +7,6 @@
 #include "../Lesson3/Sorts/SelectionSort.h"
 #include "../Lesson3/Sorts/BubbleSort.h"
 
-
-
 static const std::vector<std::initializer_list<int>> kInputArrays =
 {
 	{3,5,8,3,0,2,1,4},
