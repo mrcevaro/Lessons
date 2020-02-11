@@ -3,6 +3,8 @@
 
 #include "../../Shared/TestHelper.h"
 
+#include "../Lesson3/Sorts/Arrays.h"
+
 int DummyFunction(int* arr, int n) { return 0; }
 
 // Внимание. Задачи из этого файла делай в одном хидере
@@ -13,9 +15,10 @@ TEST(MaxMinInArray, Task_1_1_FirstMax)
 	// Функция получает на вход массив и его размер.
 	// Вернуть индекс первого максимального элемента. 
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(GetFirstMax);
 	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 3); // Максимальный элемент тут 8. Их в массиве 4 штуки, но первая идет по индексом 3.
 	test.ExpectEq({ 1,2,3,3,2,1 }, 2);
+	test.ExpectEq({ 1,1,1,2,1,1 }, 3);
 }
 
 TEST(MaxMinInArray, Task_1_2_LastMax)
@@ -24,7 +27,7 @@ TEST(MaxMinInArray, Task_1_2_LastMax)
 	// Функция получает на вход массив и его размер.
 	// Вернуть индекс последнего максимального элемента. 
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(GetLastMax);
 	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 10); // Последжняя 8ка под индексом 10.
 	test.ExpectEq({ 1,2,3,3,2,1 }, 3);
 }
@@ -36,8 +39,8 @@ TEST(MaxMinInArray, Task_1_3_ThirdMax)
 	// Вернуть индекс третьего максимального элемента.
 	// Если третьего максимума нету - вернуть -1
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
-	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 9); // Третья 8ка под индексом 10.
+	auto test = TestHelper::GetTestReturnValue(GetThirdMax);
+	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 10); // Третья 8ка под индексом 10.
 	test.ExpectEq({ 1,2,3,3,2,1 }, -1);
 }
 
