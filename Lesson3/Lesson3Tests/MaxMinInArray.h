@@ -5,8 +5,6 @@
 
 #include "../Lesson3/Sorts/Arrays.h"
 
-int DummyFunction(int* arr, int n) { return 0; }
-
 // Внимание. Задачи из этого файла делай в одном хидере
 
 TEST(MaxMinInArray, Task_1_1_FirstMax)
@@ -51,7 +49,7 @@ TEST(MaxMinInArray, Task_1_4_PenultimateMax)
 	// Вернуть индекс предпоследнего максимального элемента.
 	// Если такого нету - вернуть -1
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
 	test.ExpectEq({ 2,9,9,4,8,5,6,9,3,1,9,8,4 }, 9); // Максимум тут 9. Предпоследняя девятка под номером 7
 	test.ExpectEq({ 1,2,3,4,3,2,1 }, -1);
 }
@@ -63,7 +61,7 @@ TEST(MaxMinInArray, Task_1_5_CountOfMax)
 	// Функция получает на вход массив и его размер.
 	// Вернуть количество максимальных элементов.
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
 	test.ExpectEq({ 2,9,9,4,8,5,6,9,3,1,9,8,4 }, 4); // Максимум тут 9 их 4 штуки
 	test.ExpectEq({ 1,2,3,4,3,2,1 }, 1);
 }
@@ -75,7 +73,7 @@ TEST(MaxMinInArray, Task_1_6_AlmostMax)
 	// Вернуть число которое было бы максимальным, если бы не было максимального.
 	// Иными словами, предмаксимум
 
-	auto test = TestHelper::GetTestReturnValue(DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
 	test.ExpectEq({ 2,9,9,4,7,5,6,9,3,1,9,7,4 }, 7); // Максимум тут 9, следом за ним идет число 7
 	test.ExpectEq({ 1,2,3,4,3,2,1 }, 3);
 }

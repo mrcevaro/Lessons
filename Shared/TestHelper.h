@@ -31,7 +31,23 @@ namespace TestHelper
 		{}
 
 		template <class TArray>
-		void ExpectEq(std::initializer_list<int> input, TArray& output)
+		void ExpectEq(std::initializer_list<int> input, TArray&& output)
+		{
+			auto arr = GetArrayFromInitializerList(input);
+
+			_function(arr.get(), static_cast<int>(input.size()));
+
+			{
+				int i = 0;
+				for (auto expected_elem : output)
+				{
+					EXPECT_EQ(arr[i], expected_elem);
+					i++;
+				}
+			}
+		}
+
+		void ExpectEq(std::initializer_list<int> input, std::initializer_list<int> output)
 		{
 			auto arr = GetArrayFromInitializerList(input);
 
@@ -103,4 +119,6 @@ namespace TestHelper
 			}
 		}
 	};
+
+	int DummyFunction(int* arr, int n) { return 0; }
 }
