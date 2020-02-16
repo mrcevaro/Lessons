@@ -13,16 +13,18 @@ namespace Sort
 		// в конец массива.
 		// Если мы проделаем такую процедуру n раз, то все элементы повсплывают и массив получится осортированным.
 
-		int i = 0;
-		while (i < n)
+		for (int i = 0; i < n; i++)
 		{
-			int temp = arr[i];
-			if (arr[i] > arr[i + 1])
+			for (int z = 0; z < n - 1; z++)
 			{
-				arr[i] = arr[i + 1];
-				arr[i + 1] = temp;
+				if (arr[z] > arr[z + 1])
+				{
+					const int temp = arr[z];
+					arr[z] = arr[z + 1];
+					arr[z + 1] = temp;
+				}
 			}
-			i++;
+
 		}
 	}
 }

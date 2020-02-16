@@ -13,7 +13,7 @@ TEST(MaxMinInArray, Task_1_1_FirstMax)
 	// Функция получает на вход массив и его размер.
 	// Вернуть индекс первого максимального элемента. 
 
-	auto test = TestHelper::GetTestReturnValue(GetFirstMax);
+	auto test = TestHelper::GetTestReturnValue(Task_1_1_GetFirstMax);
 	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 3); // Максимальный элемент тут 8. Их в массиве 4 штуки, но первая идет по индексом 3.
 	test.ExpectEq({ 1,2,3,3,2,1 }, 2);
 	test.ExpectEq({ 1,1,1,2,1,1 }, 3);
@@ -41,6 +41,8 @@ TEST(MaxMinInArray, Task_1_3_ThirdMax)
 	auto test = TestHelper::GetTestReturnValue(GetThirdMax);
 	test.ExpectEq({ 2,7,4,8,5,6,8,3,1,8,8,4 }, 9); // Третья 8ка под индексом 10.
 	test.ExpectEq({ 1,2,3,3,2,1 }, -1);
+	test.ExpectEq({ -2,-3,-1,-1,-1 }, 4);
+	test.ExpectEq({ 1,1,1,2,2,2 }, 5);
 }
 
 TEST(MaxMinInArray, Task_1_4_PenultimateMax)
@@ -50,8 +52,8 @@ TEST(MaxMinInArray, Task_1_4_PenultimateMax)
 	// Вернуть индекс предпоследнего максимального элемента.
 	// Если такого нету - вернуть -1
 
-	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
-	test.ExpectEq({ 2,9,9,4,8,5,6,9,3,1,9,8,4 }, 9); // Максимум тут 9. Предпоследняя девятка под номером 7
+	auto test = TestHelper::GetTestReturnValue(GetPenultimateMax);
+	test.ExpectEq({ 2,9,9,4,8,5,6,9,3,1,9,8,4 }, 7); // Максимум тут 9. Предпоследняя девятка под номером 7
 	test.ExpectEq({ 1,2,3,4,3,2,1 }, -1);
 }
 
