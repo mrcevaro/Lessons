@@ -1,77 +1,50 @@
-
-struct ListNode
-{
-	int _value = 0;
-	ListNode* _next = nullptr;
-};
-
-struct Date
-{
-	int _year = 0;
-	int _month = 0;
-	int _day = 0;
-};
-
-struct Student
-{
-	int _id;
-	const Date _birth_date;
-	double _mark;
-
-	Student(Date date)
-	: _id(0),
-	  _birth_date(date),
-	  _mark(5)
-	{}
-
-	Student(Date date, double mark )
-		: _id(0),
-		_birth_date(date),
-		_mark(mark)
-	{}
-};
-
+#include "Data.h"
+#include <iostream>
 
 int main()
 {
-	int a = 3;
-	double b;
+	////  Yeastreday Date
+	//Date date = {};
+	//std::cin >> date._year;
+	//std::cin >> date._month;
+	//std::cin >> date._day;
 
-	int arr[3];
+	//GetYeasterdayDate(date);
+	//std::cout << date._year << "-" << date._month << "-" << date._day;
+	//std::cout << std::endl;
 
-	Date date;
-	Date date1{ 2020, 2, 13 };
+	//// Compare Date
+	//Date date1 = {};
+	//Date date2 = {};
 
-	date._year = 2019;
+	//std::cin >> date1._year;
+	//std::cin >> date1._month;
+	//std::cin >> date1._day;
 
-	date._month = date1._month + 1;
+	//std::cin >> date2._year;
+	//std::cin >> date2._month;
+	//std::cin >> date2._day;
 
-	Date dates[10];
-	for (int i = 0; i < 10; i++)
-	{
-		dates[i]._year = 2020;
-	}
-	
-	Student student{ Date{2000, 3, 14} };
+	//std::cout << CompareDate(date1, date2);
+	//
+	//std::cout << std::endl;
 
-	//student._birth_date._year = 1999;
+	//Season Date
 
-	Student* student2 = new Student{ Date{1980,12,1} };
+	/*Date date3 = {};
+	std::cin >> date3._year;
+	std::cin >> date3._month;
+	std::cin >> date3._day;
 
-	Student* student3 = new Student(Date{ 1800, 2, 12 }, 3);
-	
-	Student* student4 = new Student{ Date{ 1800, 2, 12 }, 3 };
+	std::cout << GetSeason(date3);*/
 
-	Student student5 { Date{ 1800, 2, 12 }, 3 };
+	Date date4 = {};
+	std::cin >> date4._year;
+	std::cin >> date4._month;
+	std::cin >> date4._day;
 
-	Date date2{ 2020, 2, 13 };
+	std::cout << GetCountDay(date4);
 
-	delete student2;
-	delete student3;
-	delete student4;
-
-	ListNode listnode;
-	listnode._next = new ListNode;
-	listnode._next->_next = new ListNode;
-	listnode._next->_next->_next = &listnode;
+	std::cout << std::endl;
+	std::system("pause");
 }
