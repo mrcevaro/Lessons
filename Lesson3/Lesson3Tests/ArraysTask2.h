@@ -4,6 +4,7 @@
 #include "../../Shared/TestHelper.h"
 
 #include "../Lesson3/Sorts/Arrays.h"
+#include "../Lesson3/Sorts/ArrarysTask2.h"
 
 // Внимание. Задачи из этого файла делай в одном хидере
 
@@ -26,7 +27,7 @@ TEST(ArraysTask2, Task_2_2_RemoveAndShrink)
 	// Удалить из массива все отрицательные значения и 0, а оставшиеся уплотнить (сдви-
 	// нуть) с сохранением исходного порядка к началу массива. Хвост массива заполнить нулями
 
-	auto test = TestHelper::GetTestArrayCompare(TestHelper::DummyFunction);
+	auto test = TestHelper::GetTestArrayCompare(Task_2_2_RemoveAndShrink);
 	test.ExpectEq({ 0, 1,2,-1,3,-1,-1,4,5,-1,6 }, {1,2,3,4,5,6,0,0,0,0,0});
 	test.ExpectEq({ 1,-1,-2,3 }, { 1,3,0,0 });
 }

@@ -39,7 +39,6 @@ namespace Sort
 		// 3 5 2 9 0 1
 		// 0 5 2 9 3 1 
 		// 0 1 2 9 3 5 
-
 		for (int i = 0; i < n; i++)
 		{
 			const int index_of_min = GetIndexOfMin(arr, n, i);

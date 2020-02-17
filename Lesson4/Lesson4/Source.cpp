@@ -31,19 +31,27 @@ int main()
 
 	//Season Date
 
-	/*Date date3 = {};
-	std::cin >> date3._year;
-	std::cin >> date3._month;
-	std::cin >> date3._day;
+	std::cout << Dates::GetCountDay({ 2020,2,1 }) << std::endl;
 
-	std::cout << GetSeason(date3);*/
+	//Dates::Date date3 = {};
+	//std::cin >> date3._year;
+	//std::cin >> date3._month;
+	//std::cin >> date3._day;
 
-	Date date4 = {};
+	//const auto season = Dates::GetSeason(date3);
+	//if (season == Dates::Season::Summer)
+	//{
+	//}
+	//std::cout << 
+
+	/*Dates::Date date4 = {};
 	std::cin >> date4._year;
 	std::cin >> date4._month;
 	std::cin >> date4._day;
 
-	std::cout << GetCountDay(date4);
+	std::cout << Dates::GetCountDay(date4);
+
+*/
 
 	std::cout << std::endl;
 	std::system("pause");

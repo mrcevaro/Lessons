@@ -15,16 +15,15 @@ namespace Sort
 
 		for (int i = 0; i < n; i++)
 		{
-			for (int z = 0; z < n - 1; z++)
+			for (int j = 0; j < n - 1; j++) // n-1
 			{
-				if (arr[z] > arr[z + 1])
+				if (arr[j] > arr[j + 1])
 				{
-					const int temp = arr[z];
-					arr[z] = arr[z + 1];
-					arr[z + 1] = temp;
+					const int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
 				}
 			}
-
 		}
 	}
 }
