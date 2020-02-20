@@ -4,7 +4,7 @@
 #include "../../Shared/TestHelper.h"
 
 #include "../Lesson3/Sorts/Arrays.h"
-#include "../Lesson3/Sorts/ArrarysTask2.h"
+#include "../Lesson3/Sorts/ArrayTask.h"
 
 // Внимание. Задачи из этого файла делай в одном хидере
 
@@ -28,7 +28,7 @@ TEST(ArraysTask2, Task_2_2_RemoveAndShrink)
 	// нуть) с сохранением исходного порядка к началу массива. Хвост массива заполнить нулями
 
 	auto test = TestHelper::GetTestArrayCompare(Task_2_2_RemoveAndShrink);
-	test.ExpectEq({ 0, 1,2,-1,3,-1,-1,4,5,-1,6 }, {1,2,3,4,5,6,0,0,0,0,0});
+	test.ExpectEq({ 0, 1, 2,-1,3,-1,-1,4,5,-1,6 }, {1,2,3,4,5,6,0,0,0,0,0});
 	test.ExpectEq({ 1,-1,-2,3 }, { 1,3,0,0 });
 }
 
@@ -40,7 +40,7 @@ TEST(ArraysTask2, Task_2_3_MaxSegment)
 	// Например 1 2 2 2 3 3 4. Тут 4 отрезка: (1), (2 2 2), (3 3), (4).
 	// Вернуть количество элементов в самом длинном отрезке
 
-	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(Task_2_3_MaxSegment);
 	test.ExpectEq({ 1,2,2,2,3,3,4 }, 3); // Самый длинный 2 2 2, его длина 3
 	test.ExpectEq({ 1,2,3,4,5 }, 1);
 	test.ExpectEq({ 1,1,1,1,1,1}, 6);
@@ -53,7 +53,7 @@ TEST(ArraysTask2, Task_2_4_MoveMaxElement)
 	// Гарантируется что в массиве нет повторяющихся элементов.
 	// Необходимо поместить максимум в конец массива, с сохранением порядка остальных элементов
 
-	auto test = TestHelper::GetTestArrayCompare(TestHelper::DummyFunction);
+	auto test = TestHelper::GetTestArrayCompare(Task_2_4_MoveMaxElement);
 	test.ExpectEq({ 3,7,9,3,5,4,7,8 }, { 3,7,3,5,4,7,8,9 }); // 9 подвинулась в конец, порядок остальных сохранен
 	test.ExpectEq({ 1,9,2,3,4,5 }, { 1,2,3,4,5,9 });
 	test.ExpectEq({ 1,1,3,1,1,1 }, {1,1,1,1,1,3});

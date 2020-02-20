@@ -1,4 +1,5 @@
-#include "Data.h"
+//#include "Date.h"
+#include "TimeSegment.h"
 #include <iostream>
 
 int main()
@@ -31,7 +32,7 @@ int main()
 
 	//Season Date
 
-	std::cout << Dates::GetCountDay({ 2020,2,1 }) << std::endl;
+	//std::cout << Dates::GetCountDay({ 2020,2,1 }) << std::endl;
 
 	//Dates::Date date3 = {};
 	//std::cin >> date3._year;
@@ -52,6 +53,19 @@ int main()
 	std::cout << Dates::GetCountDay(date4);
 
 */
+	Dates::Date date1 = {};
+	Dates::Date date2 = {};
+
+	std::cin >> date1._year;
+	std::cin >> date1._month;
+	std::cin >> date1._day;
+
+	std::cin >> date2._year;
+	std::cin >> date2._month;
+	std::cin >> date2._day;
+	TimeSegment tm = { date1, date2 };
+	std::cout << CountDayTimeSegment(tm);
+
 
 	std::cout << std::endl;
 	std::system("pause");

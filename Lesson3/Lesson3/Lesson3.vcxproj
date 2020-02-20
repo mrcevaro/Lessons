@@ -130,6 +130,7 @@
     <ClInclude Include="Sorts\ArrarysTask2.h" />
     <ClInclude Include="Sorts\Arrays.h" />
     <ClInclude Include="Sorts\BubbleSort.h" />
+    <ClInclude Include="Sorts\ArrayTask.h" />
     <ClInclude Include="Sorts\SelectionSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

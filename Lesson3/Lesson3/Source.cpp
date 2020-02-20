@@ -1,5 +1,5 @@
 #include "Sorts/BubbleSort.h"
-#include "Sorts/ArrarysTask2.h"
+#include "Sorts/ArrayTask.h"
 #include "Sorts/Arrays.h"
 #include <iostream>
 int main()
@@ -17,11 +17,11 @@ int main()
 
 	//int arr1[6] = { 1, -2, 2, 3, -2, 4 };
 
-	int arr1[6] = { 1, 0, 2, 3, 0, 4 };
+	int arr1[11] = { 2, 1, 2,-1,3,-1,-1,4,5,-1,6 };
 
 	for (int i = 0; i < std::size(arr1); i++)
 	{
-		std::cout << arr1[i];
+		std::cout << arr1[i] << ", ";
 	}
 
 	std::cout  << std::endl;
@@ -30,7 +30,7 @@ int main()
 
 	for (int i = 0; i < std::size(arr1); i++)
 	{
-		std::cout << arr1[i];
+		std::cout << arr1[i] << ", ";
 	}
 	std::cout << std::endl;
 
