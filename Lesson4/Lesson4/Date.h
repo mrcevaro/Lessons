@@ -167,5 +167,12 @@ namespace Dates
 		return difference_years * Date::count_days_year + general_count_days_for_months + difference_days;
 	}
 
+	Date GetDateByDays(int days)
+	{
+		// % - остаток от деления
+		// / - частное с округлением
+		// 2  - 2000-01-02
+		// 32 - 2000-02-02
+	}
 
 }

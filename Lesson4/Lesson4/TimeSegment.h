@@ -19,19 +19,19 @@ struct TimeSegment
 			_start_date = date1;
 			_end_date = date2;
 		}
-		else if(Dates::CompareDate1(date1, date2) == 1)
+		else
 		{
 			_start_date = date2;
 			_end_date = date1;
 		}
-
 	}
 };
 
 
 int CountDayTimeSegment(const TimeSegment &time_segment) 
 {
-	
+	return GetCountDay(time_segment._end_date) - GetCountDay(time_segment._start_date);
+
 	const int segment_years = time_segment._end_date._year - time_segment._start_date._year;
 	const int segment_days = time_segment._end_date._day - time_segment._start_date._day;
 	const int segment_month = time_segment._end_date._month - time_segment._start_date._month;
