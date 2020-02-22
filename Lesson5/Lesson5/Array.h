@@ -1,5 +1,5 @@
+﻿//Hello Unicode World ☺. ☻.
 #pragma once
-
 
 class Array
 {

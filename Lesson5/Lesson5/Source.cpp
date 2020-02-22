@@ -1,5 +1,6 @@
-#include <string>
+﻿#include <string>
 #include <iostream>
+#include "Array.h"
 
 enum class Gender
 {
@@ -35,7 +36,7 @@ public:
 		std::cout << _name << ' ' << _avg_mark << ' ' << std::endl;
 	}
 };
-
+//Hello Unicode World ☺. ☻.
 
 
 
