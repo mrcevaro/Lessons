@@ -76,7 +76,7 @@ TEST(MaxMinInArray, Task_1_6_AlmostMax)
 	// Вернуть число которое было бы максимальным, если бы не было максимального.
 	// Иными словами, предмаксимум
 
-	auto test = TestHelper::GetTestReturnValue(Task_1_6_AlmostMax);
+	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
 	test.ExpectEq({ 2,9,9,4,7,5,6,9,3,1,9,7,4 }, 7); // Максимум тут 9, следом за ним идет число 7
 	test.ExpectEq({ 1,2,3,4,3,2,1 }, 3);
 }

@@ -1,31 +1,6 @@
 ﻿//Hello Unicode World ☺. ☻.
 #pragma once
 #include <iostream>
-
-
-int Task_2_1_Palindrome(int* arr, int n)
-{
-// Задача 2.1. Палиндром
-// На вход функции подается массив и его размер
-// Вывести 0, если его значения симметричны относительно центра
-// В противном случае вывести 1
-
-	int result = 1;
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] == arr[(n - i) - 1])
-		{
-			result = 0;
-			continue;
-		}
-		else
-		{
-			return  1;
-		}
-	}
-	return result;
-}
-
 void Task_2_2_RemoveAndShrink(int* arr, int n)
 {
 	//arr[0] = arr[1];
@@ -53,37 +28,6 @@ void Task_2_2_RemoveAndShrink(int* arr, int n)
 	}
 }
 
-int Task_2_3_MaxSegment(int* arr, int n)
-{
-	// Задача 2.3. Длина отрезка
-	// На вход функции подается массив и его размер
-	// Назовем "отрезком" участок массива с одинаковыми элементами.
-	// Например 1 2 2 2 3 3 4. Тут 4 отрезка: (1), (2 2 2), (3 3), (4).
-	// Вернуть количество элементов в самом длинном отрезке
-
-	int length = 1;
-	int element = arr[0];
-	int prev_length = 0;
-	for (int i = 1; i < n; i++)
-	{
-		if (element == arr[i])
-		{
-			length++;
-		}
-		else
-		{
-			element = arr[i];
-			length = 1;
-		}
-
-		if (length > prev_length)
-		{
-			prev_length = length;
-		}
-	}
-	return length > prev_length ? length : prev_length;
-}
-
 // Задача 2.4. Вытащить максимум
 // На вход функции подается массив и его размер
 // Гарантируется что в массиве нет повторяющихся элементов.
@@ -109,3 +53,27 @@ void Task_2_4_MoveMaxElement(int* arr, int n)
 	arr[n - 1] = max_element;
 }
 
+int Task_2_3_MaxSegment(int* arr, int n)
+{
+	int length = 1;
+	int max_element = arr[0];
+	int prev_length = 0;
+	for (int i = 0; i < n; i++) 
+	{
+		
+		if (max_element == arr[i])
+		{
+			length++;
+		}else if (arr[i] > max_element)
+		{
+			prev_length = length;
+			max_element = arr[i];
+			length = 1;
+		}
+		
+		
+
+	
+	}
+	return length > prev_length ? length : prev_length;
+}
