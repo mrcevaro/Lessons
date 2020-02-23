@@ -15,8 +15,9 @@ TEST(ArraysTask2, Task_2_1_Palindrome)
 	// Вывести 0, если его значения симметричны относительно центра
 	// В противном случае вывести 1
 
-	auto test = TestHelper::GetTestReturnValue(TestHelper::DummyFunction);
+	auto test = TestHelper::GetTestReturnValue(Task_2_1_Palindrome);
 	test.ExpectEq({ 1,2,3,4,5,4,3,2,1 }, 0);
+	test.ExpectEq({ 1,2,3,4,5,5,3,2,1 }, 1);
 	test.ExpectEq({ 4,3,8,1 }, 1);
 }
 
