@@ -45,3 +45,8 @@ int CountDayTimeSegment(const TimeSegment &time_segment)
 
 	return segment_years * 365 + count_days_months + segment_days;
 }
+
+TimeSegment TimeSegmentPlusN(Dates::Date, int n)
+{
+
+}

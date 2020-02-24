@@ -1,7 +1,21 @@
+﻿//Hello Unicode World ☺. ☻.
 #pragma once
 #include "pch.h"
 
 #include "../Lesson5/Array.h"
+
+//Hello Unicode World ☺. ☻.
+
+//К классу Array добавить следующий функционал :
+//1.1.Конструктор, который принимает размер массива n и число v.Создает массив размера n, все элементы которого
+//заполнены значением v.
+//1.2.Конструктор, который принимает размер массива n и два числа min, max.Создает массив размера n
+//который заполнен случайными  числами в джиапазоне[min, max].
+//
+//1.3.Добавить метод IsSorted, который возвращает true, если массив отсортирован по возрастанию, иначе false.
+//
+//
+
 
 TEST(TestArray, TestEmpty)
 {
@@ -54,23 +68,23 @@ TEST(TestArray, TestStress)
 
 TEST(TestArray, TestConstructor1_1)
 {
-	EXPECT_TRUE(false);
-	// ����������� � ����� ���������� ������� ��� ����� ������ ������� 1.1
-	/*
+	//EXPECT_TRUE(false);
+	// Расскоменть и убери предыдущую строчку как будет готово задание 1.1
+	
 	static const int kArraySize = 10;
 	Array arr(kArraySize, 4);
 	for (int i = 0; i < kArraySize; i++)
 	{
 		EXPECT_EQ(arr.GetValue(i), 4);
 	}
-	*/
+	
 }
 
 TEST(TestArray, TestConstructor1_2)
 {
-	EXPECT_TRUE(false);
-	// ����������� � ����� ���������� ������� ��� ����� ������ ������� 1.2
-	/*
+	//EXPECT_TRUE(false);
+	// Расскоменть и убери предыдущую строчку как будет готово задание 1.2
+	
 	static const int kArraySize = 1000;
 	static const int kMinValue = 10;
 	static const int kMaxValue = 30;
@@ -81,14 +95,14 @@ TEST(TestArray, TestConstructor1_2)
 		const auto value = arr.GetValue(i);
 		EXPECT_TRUE(value >= kMinValue && value <= kMaxValue);
 	}
-	*/
+	
 }
 
 TEST(TestArray, TestIsSorted)
 {
-	EXPECT_TRUE(false);
-	// ����������� � ����� ���������� ������� ��� ����� ������ ������� 1.3
-	/*
+	//EXPECT_TRUE(false);
+	// Расскоменть и убери предыдущую строчку как будет готово задание 1.3
+	
 	static const int kArraySize = 1000;
 	static const int kMaxValue = 10000;
 
@@ -111,5 +125,4 @@ TEST(TestArray, TestIsSorted)
 
 		EXPECT_TRUE(arr.IsSorted());
 	}
-	*/
 }
