@@ -144,11 +144,24 @@ int Task_1_6_AlmostMax(int* arr, int n)
 		return -1;
 	}
 
-	int index_max_element = 0;
-	int index_prev_max_element = -1;
 	int max_element = arr[0];
 
-	int prev_max_element = arr[0];
+	int prev_max_element = 0;
+
+
+	//int max_element = arr[0];
+	//int prev_max_element = 0;
+
+	//for (int i = 1; i < n; i++)
+	//{
+	//	if (arr[i] > max_element)
+	//	{
+	//		prev_max_element = max_element;
+	//		max_element = arr[i];
+	//	}
+	//}
+
+	//return prev_max_element;
 
 	for (int i = 1; i < n; i++)
 	{
@@ -156,7 +169,7 @@ int Task_1_6_AlmostMax(int* arr, int n)
 		{
 			max_element = arr[i];
 		}
-		if (arr[i] < max_element)
+		else if (arr[i] < max_element)
 		{
 			if (arr[i] > prev_max_element)
 			{

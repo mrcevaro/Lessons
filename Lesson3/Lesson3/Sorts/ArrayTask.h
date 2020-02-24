@@ -10,20 +10,14 @@ int Task_2_1_Palindrome(int* arr, int n)
 // Вывести 0, если его значения симметричны относительно центра
 // В противном случае вывести 1
 
-	int result = 1;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n/2; i++)
 	{
-		if (arr[i] == arr[(n - i) - 1])
+		if (arr[i] != arr[(n - i) - 1])
 		{
-			result = 0;
-			continue;
-		}
-		else
-		{
-			return  1;
+			return 1;
 		}
 	}
-	return result;
+	return 0;
 }
 
 void Task_2_2_RemoveAndShrink(int* arr, int n)
@@ -63,7 +57,7 @@ int Task_2_3_MaxSegment(int* arr, int n)
 
 	int length = 1;
 	int element = arr[0];
-	int prev_length = 0;
+	int max_length = 0;
 	for (int i = 1; i < n; i++)
 	{
 		if (element == arr[i])
@@ -72,16 +66,16 @@ int Task_2_3_MaxSegment(int* arr, int n)
 		}
 		else
 		{
+			if (length > max_length)
+			{
+				max_length = length;
+			}
+
 			element = arr[i];
 			length = 1;
 		}
-
-		if (length > prev_length)
-		{
-			prev_length = length;
-		}
 	}
-	return length > prev_length ? length : prev_length;
+	return length > max_length ? length : max_length;
 }
 
 // Задача 2.4. Вытащить максимум
