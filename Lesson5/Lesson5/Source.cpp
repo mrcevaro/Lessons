@@ -39,8 +39,7 @@ public:
 //Hello Unicode World ☺. ☻.
 
 
-
-int main()
+void Lesson5Function1()
 {
 	Student student1("Andrey", Gender::Male);
 	Student student2("Vasya", Gender::Male);
@@ -54,7 +53,7 @@ int main()
 	student2.AddMark(5);
 
 	std::cout << student1.AvgMark() << ' ' << student2.AvgMark() << std::endl;
-	
+
 
 	{
 		Array arr(10);
@@ -70,13 +69,13 @@ int main()
 	}
 
 	int a;
-	
+
 	int arr[5];
 
 	int* p = arr;
 	int* q = p;
 	q++;
-	
+
 	int diff1 = q - p;
 	int diff2 = p - q;
 
@@ -94,9 +93,32 @@ int main()
 	{
 		std::cout << *p << std::endl;
 	}
+}
 
 
+void Lesson5Function2()
+{
+	Array arr0(10, 0);
+	Array arr1 = arr0; // Конструктор копирования
 
+
+	arr1 = arr0; // Оператор присваивания
+
+	arr1.SetValue(3, 12);
+
+	arr1[3] = 12; // Оператор индексации
+
+	arr1.operator[](3) = 12;
+
+	std::cout << arr0[3] << std::endl;
+	std::cout << arr1[3] << std::endl;
+
+
+}
+
+int main()
+{
+	Lesson5Function2();
 
 	std::system("pause");
 }

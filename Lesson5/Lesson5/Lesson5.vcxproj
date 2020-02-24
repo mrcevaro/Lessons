@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Tasks.txt" />
