@@ -35,6 +35,6 @@ TEST(Additioonal, Task_1_4)
 		3 - 3
 		4 - 2*/
 
-	auto test = TestHelper::GetTestArrayCompare(TestHelper::DummyFunction);
-	test.ExpectEq({ 3, 3, 3, 4, 0, 0, 0, 2 , 4, 3 }, { 3, 1, 2, 3, 2 });
+	auto test = TestHelper::GetTestArrayCompare(Task1_4);
+	test.ExpectEq({ 3, 2, 3, 4, 0, 0, 0, 2, 4, 3 }, { 3, 0, 2, 3, 2 });
 }
