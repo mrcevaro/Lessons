@@ -2,6 +2,9 @@
 #pragma once
 #include "pch.h"
 #include <vector>
+
+#include "../Lesson5/DynamicArray.h"
+
 //Написать класс DynamicArray.
 //Он также как и Array хранит массив, но при этом может менять свой размер во время жизни.
 //2.1.У него такие же конструкторы как и у Array.

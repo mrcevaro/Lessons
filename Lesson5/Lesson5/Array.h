@@ -49,7 +49,7 @@ public:
 
 		for (int i = 0; i < _size; i++)
 		{
-			_array[i] = min + std::rand() % max; // Сейчас генерируются числа из [min, min + max)
+			_array[i] = std::rand() % (max - min + 1) + min; // Сейчас генерируются числа из [min, min + max)
 		}
 	}
 
@@ -113,107 +113,6 @@ public:
 
 
 
-class DynamicArray
-{
-	int _size = 0;
-	int _value = 0;
-	int _min = 0;
-	int _max = 0;
-	int* _array = nullptr;
 
-	bool IsOutOfRange(int index) const
-	{
-		return index < 0 || index >= _size;
-	}
-
-	void CheckIndexInRange(int index) const
-	{
-		if (IsOutOfRange(index))
-		{
-			exit(1);
-		}
-	}
-
-public:
-	DynamicArray(int size)
-		: _size(size)
-	{
-		_array = new int[_size];
-	}
-
-	DynamicArray(int size, int value)
-		: _size(size), _value(value)
-	{
-		_array = new int[_size];
-		for (int i = 0; i < _size; i++)
-		{
-			_array[i] = _value;
-		}
-	}
-
-	DynamicArray(int size, int min, int max)
-		: _size(size), _min(min), _max(max)
-	{
-		_array = new int[_size];
-
-		for (int i = 0; i < _size; i++)
-		{
-			const int temp = _min + std::rand() % _max;
-			if (temp < max)
-			{
-				_array[i] = temp;
-			}
-			else
-			{
-				_array[i] = temp % 10 + 10;
-			}
-		}
-	}
-	~DynamicArray() 
-	{
-		delete[] _array;
-	}
-
-
-	int Size() const { return _size; }
-
-	void SetValue(int index, int value)
-	{
-		CheckIndexInRange(index);
-		_array[index] = value;
-	}
-
-	int GetValue(int index) const
-	{
-		CheckIndexInRange(index);
-		return _array[index];
-	}
-
-	void SetNewSize(int new_size)
-	{
-		if (new_size <= _size)
-		{
-			_size = new_size;
-			return;
-		}
-
-		int* new_array = new int[new_size];
-		for (int i = 0; i < _size; i++)
-		{
-			new_array[i] = _array[i];
-		}
-		for (int i = _size; i < new_size; i++)
-		{
-			new_array[i] = 0;
-		}
-		_size = new_size;
-		delete[] _array;
-		_array = new_array;
-	}
-
-
-	void PushBack(int value) {}
-	void PopBack() {}
-};
 
 
