@@ -1,6 +1,7 @@
 ﻿#include <string>
 #include <iostream>
 #include "Array.h"
+#include "List.h"
 
 enum class Gender
 {
@@ -116,9 +117,38 @@ void Lesson5Function2()
 
 }
 
+void Lesson5Function3()
+{
+	SortedList list;
+	list.Print(); // 1 2
+	list.PushFront(3);
+	list.Print(); // 1 2
+	list.PushFront(2);
+	list.Print(); // 1 2
+	list.PushFront(1);
+	list.Print(); // 1 2
+
+	/*SortedList list;
+	list.Print();*/
+	list.PushBack(9);
+	list.Print(); 
+	list.PushBack(10);
+	list.Print();
+	list.PushBack(16);
+	list.Print();
+	list.PushBack(17);
+	list.Print();
+}
+
 int main()
 {
-	Lesson5Function2();
+	Lesson5Function3();
+
+	//Date date;
+	//date.year = 3;
+	//
+	//Date* p = &date;
+	//p->year = 4;
 
 	std::system("pause");
 }

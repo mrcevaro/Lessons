@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
+    <ClInclude Include="CountersNumbers.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="List.h" />
   </ItemGroup>
