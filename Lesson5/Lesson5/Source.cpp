@@ -138,6 +138,9 @@ void Lesson5Function3()
 	list.Print();
 	list.PushBack(17);
 	list.Print();
+
+	//list.IsExist(1);
+	std::cout << list.IsExist(1) << std::endl;
 }
 
 int main()

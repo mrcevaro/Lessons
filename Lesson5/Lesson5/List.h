@@ -106,7 +106,7 @@ public:
 			if (p->_next == nullptr)
 			{
 				ListElem* list_elem = new ListElem{ value, nullptr };
-				p->_next = list_elem;                //p = list_elem; // Вопрос почему не выводиться 9 если по сути перезаписывается 3?
+				p->_next = list_elem; //p = list_elem; // Вопрос почему не выводиться 9 если по сути перезаписывается 3?
 				return;
 			}
 			p = p->_next;
@@ -115,6 +115,16 @@ public:
 
 	bool IsExist(int value)
 	{
+		ListElem* p = _first;
+		while (p != nullptr)
+		{
+			if (p->_value == value) 
+			{
+				return true;
+			}
+			p = p->_next;
+		}
+		return false;
 		// Вывести тру, если в списке есть элемнт со значнием value
 	}
 
