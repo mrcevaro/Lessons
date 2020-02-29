@@ -4,6 +4,8 @@
 
 int main()
 {
+	const Dates::Date date = Dates::GetDateByDays(35);
+	int a = 0;
 	////  Yeastreday Date
 	//Date date = {};
 	//std::cin >> date._year;

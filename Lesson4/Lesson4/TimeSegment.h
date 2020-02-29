@@ -46,7 +46,10 @@ int CountDayTimeSegment(const TimeSegment &time_segment)
 	return segment_years * 365 + count_days_months + segment_days;
 }
 
-TimeSegment TimeSegmentPlusN(Dates::Date, int n)
+TimeSegment TimeSegmentPlusN(Dates::Date date, int n)
 {
-
+	const int days_count = GetCountDay(date);
+	const int days_count_with_n = days_count + n;
+	const auto next_date = Dates::GetDateByDays(days_count_with_n);
+	return { date , next_date };
 }

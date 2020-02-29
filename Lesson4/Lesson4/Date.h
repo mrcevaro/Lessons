@@ -171,10 +171,29 @@ namespace Dates
 	{
 		// % - остаток от деления
 		// / - частное с округлением
-		// 2  - 2000-01-02
+		// 0 - 2000-01-01
+		// 1  - 2000-01-02
+		// 30 - 2000-01-31
+		// 31 - 2000-02-01
 		// 32 - 2000-02-02
+	
+		// 200  - 0
+		// 400 / 365 = 1
+		// 400 % 365 = 35
 
-	// 0 - 2000-01-01
+		int year = days / 365;
+		int remain_days = days % 365;
+		
+		int general_count_days = 0;
+		for (int i = 1; i < 13; i++)
+		{
+			const int general_count_days_for_next_month = general_count_days + CountDayOfMonth(i);
+			if (general_count_days < remain_days && remain_days < general_count_days_for_next_month)
+			{
+				return  Date{ 2000 + year, i, remain_days - general_count_days + 1 };
+			}
+			general_count_days = general_count_days_for_next_month; 
+		}
 	}
 
 }
