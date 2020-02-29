@@ -94,16 +94,8 @@ public:
 //Например был массив 1 2 3 4. Вызвали PushBack(13).Массив стал 1 2 3 4 13.
 	void PushBack(int value) 
 	{
-		const int new_size = _size + 1;
-		int* new_array = new int[new_size];
-		for (int i = 0; i < _size; i++)
-		{
-			new_array[i] = _array[i];
-		}
-		new_array[_size] = value;
-		_size = new_size;
-		delete[] _array;
-		_array = new_array;
+		SetNewSize(_size + 1);
+		_array[_size - 1] = value;
 	}
 
 	//2.5.Метод PopBack().Выкидывает из массива последний элемент.Уменьшает размер на 1.
