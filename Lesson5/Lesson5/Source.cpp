@@ -143,11 +143,17 @@ void Lesson5Function3()
 	list.PushBack(22);
 	list.Print();
 
+	list.AddAfterIfExist(22, 14);
+	list.Print();
+
+	list.AddBeforeIfExist(16, 15);
+	list.Print();
+
 	list.PrintNextIfExist(10);
 	list.PrintPrevIfExist(10);
 	//list.IsExist(1);
 	//std::cout << list.IsExist(1) << std::endl;
-
+	
 	std::cout << "ElementsIsSorted: " <<list.IsSorted() << std::endl;
 }
 

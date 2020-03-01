@@ -194,12 +194,56 @@ public:
 	{
 		// Вставить в список новый элемент new_elem после value
 		// {4 7 6 5 7 8}. 6 2 {4 7 6 2 5 7 8}
+
+		if (!IsExist(value))
+		{
+			return;
+		}
+
+		ListElem* p = _first;
+		while (p != nullptr)
+		{
+			if (p->_next == nullptr)
+			{
+				return;
+			}
+			else if (p->_value == value)
+			{
+				ListElem* list_elem = new ListElem{ new_elem, p->_next };
+				p->_next = list_elem;
+				return;
+			}
+			p = p->_next;
+		}
 	}
 
 	void AddBeforeIfExist(int value, int new_elem)
 	{
 		// Вставить в список новый элемент new_elem перед value
 		// {4 7 6 5 7 8}. 6 2 {4 7 2 6 5 7 8}
+
+		if (!IsExist(value))
+		{
+			return;
+		}
+
+		ListElem* p = _first;
+		ListElem* q = p;
+		while (p != nullptr)
+		{
+			if (p->_next == nullptr)
+			{
+				return;
+			}
+			else if (p->_value == value)
+			{
+				ListElem* list_elem = new ListElem{ new_elem, q->_next };
+				q->_next = list_elem;
+				return;
+			}
+			q = p;
+			p = p->_next;
+		}
 	}
 
 
