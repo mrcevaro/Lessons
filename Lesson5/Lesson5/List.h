@@ -113,7 +113,7 @@ public:
 		}
 	}
 
-	bool IsExist(int value)
+	bool IsExist(int value) 		// Вывести тру, если в списке есть элемнт со значнием value
 	{
 		ListElem* p = _first;
 		while (p != nullptr)
@@ -125,21 +125,57 @@ public:
 			p = p->_next;
 		}
 		return false;
-		// Вывести тру, если в списке есть элемнт со значнием value
+
 	}
+
+	// Вывести следующий элемент за элементом value
+	// 4 7 6 5 7 8. 6 => 5
+	// А что, если value нету в списке? Ничего не выводить
+	// А что, если следущего у value нет? Ничего не выводить 4 7 6 5 7 8. 7 =>
+	// А что, если value несколько в списке? Вывести только для первого 4 7 6 5 7 8. 7 => 6
 
 	void PrintNextIfExist(int value)
 	{
-		// Вывести следующий элемент за элементом value
-		// 4 7 6 5 7 8. 6 => 5
-		// А что, если value нету в списке? Ничего не выводить
-		// А что, если следущего у value нет? Ничего не выводить 4 7 6 5 7 8. 7 =>
-		// А что, если value несколько в списке? Вывести только для первого 4 7 6 5 7 8. 7 => 6
+		if (!IsExist(value))
+		{
+			return;
+		}
+
+		ListElem* p = _first;
+		while (p != nullptr)
+		{
+			if (p->_next == nullptr)
+			{
+				return;
+			}
+			else if (p->_value == value)
+			{
+				std::cout << "PrintNextIfExist: " << p->_next->_value << " ";
+				return;
+			}
+			p = p->_next;
+		}
 	}
 
 	void PrintPrevIfExist(int value)
 	{
+		if (!IsExist(value))
+		{
+			return;
+		}
 
+		ListElem* p = _first;
+		ListElem* q = p;
+		while (p != nullptr)
+		{
+			if (p->_value == value)
+			{
+				std::cout << "PrintPrevIfExist: " << q->_value << " ";
+				return;
+			}
+			q = p;
+			p = p->_next;
+		}
 	}
 
 	bool IsSorted()

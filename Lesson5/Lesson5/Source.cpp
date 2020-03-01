@@ -138,9 +138,15 @@ void Lesson5Function3()
 	list.Print();
 	list.PushBack(17);
 	list.Print();
+	list.PushBack(21);
+	list.Print();
+	list.PushBack(18);
+	list.Print();
 
+	list.PrintNextIfExist(21);
+	list.PrintPrevIfExist(16);
 	//list.IsExist(1);
-	std::cout << list.IsExist(1) << std::endl;
+	//std::cout << list.IsExist(1) << std::endl;
 }
 
 int main()
