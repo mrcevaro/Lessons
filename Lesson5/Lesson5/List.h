@@ -124,8 +124,6 @@ public:
 			}
 			p = p->_next;
 		}
-		return false;
-
 	}
 
 	// Вывести следующий элемент за элементом value
@@ -178,9 +176,18 @@ public:
 		}
 	}
 
-	bool IsSorted()
+	bool IsSorted() // Вернуть тру, если в списке элементы отсортированы
 	{
-		// Вернуть тру, если в списке элементы отсортированы
+		ListElem* p = _first;
+		while (p != nullptr)
+		{
+			if (p->_next != nullptr && p->_value > p->_next->_value)
+			{
+				return false;
+			}
+			p = p->_next;
+		}
+		return true;
 	}
 
 	void AddAfterIfExist(int value, int new_elem)
