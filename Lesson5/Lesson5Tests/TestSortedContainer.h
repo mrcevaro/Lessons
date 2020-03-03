@@ -4,6 +4,8 @@
 #include <chrono>
 #include <iostream>
 
+#include "../Lesson5/List.h"
+
 template <class TContainer>
 long Test(const std::vector<int>& elems, const std::vector<int>& sorted_elems)
 {
@@ -28,7 +30,7 @@ long Test(const std::vector<int>& elems, const std::vector<int>& sorted_elems)
 		EXPECT_EQ(sorted_container_elems[i], sorted_elems[i]);
 	}
 
-	return (end - start).count();
+	return (end_time - start_time).count();
 }
 
 void TestContainers(int elems_count)
@@ -47,5 +49,5 @@ void TestContainers(int elems_count)
 	std::sort(sorted_elems.begin(), sorted_elems.end());
 
 	//const auto array_time = Test<Array>(elems, sorted_elems);
-	//const auto list_time = Test<List>(elems, sorted_elems);
+	const auto list_time = Test<SortedList>(elems, sorted_elems);
 }

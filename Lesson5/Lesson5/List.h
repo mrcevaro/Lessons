@@ -2,6 +2,8 @@
 #pragma once
 #include <iostream>
 
+#include <vector>
+
 // Список, в котором все элементы отсортированы
 class SortedList
 {
@@ -101,16 +103,12 @@ public:
 		// После этого добавить после него новый кубик со значением value
 		ListElem* p = _first;
 
-		while (p != nullptr)
+		while (p->_next != nullptr)
 		{
-			if (p->_next == nullptr)
-			{
-				ListElem* list_elem = new ListElem{ value, nullptr };
-				p->_next = list_elem; //p = list_elem; // Вопрос почему не выводиться 9 если по сути перезаписывается 3?
-				return;
-			}
 			p = p->_next;
 		}
+
+		p->_next = new ListElem{ value, nullptr };
 	}
 
 	bool IsExist(int value) 		// Вывести тру, если в списке есть элемнт со значнием value
@@ -124,6 +122,7 @@ public:
 			}
 			p = p->_next;
 		}
+		return false;
 	}
 
 	// Вывести следующий элемент за элементом value
@@ -134,54 +133,68 @@ public:
 
 	void PrintNextIfExist(int value)
 	{
-		if (!IsExist(value))
+		if (_first == nullptr)
 		{
 			return;
 		}
 
 		ListElem* p = _first;
-		while (p != nullptr)
+		while (p->_next != nullptr)
 		{
-			if (p->_next == nullptr)
-			{
-				return;
-			}
-			else if (p->_value == value)
+			if (p->_value == value)
 			{
 				std::cout << "PrintNextIfExist: " << p->_next->_value << " ";
 				return;
 			}
 			p = p->_next;
 		}
+
+
+		/*while (p != nullptr)
+		{
+			if (p->_value == value)
+			{
+				if (p->_next != nullptr)
+				{
+					std::cout << "PrintNextIfExist: " << p->_next->_value << " ";
+				}
+				return;
+			}
+			p = p->_next;
+		}*/
+
 	}
 
 	void PrintPrevIfExist(int value)
 	{
-		if (!IsExist(value))
+		if (_first == nullptr)
 		{
 			return;
 		}
 
 		ListElem* p = _first;
-		ListElem* q = p;
-		while (p != nullptr)
+		while (p->_next != nullptr)
 		{
-			if (p->_value == value)
+			if (p->_next->_value == value)
 			{
-				std::cout << "PrintPrevIfExist: " << q->_value << " ";
+				std::cout << "PrintPrevIfExist: " << p->_value << " ";
 				return;
 			}
-			q = p;
 			p = p->_next;
 		}
 	}
 
 	bool IsSorted() // Вернуть тру, если в списке элементы отсортированы
 	{
-		ListElem* p = _first;
-		while (p != nullptr)
+		if (_first == nullptr)
 		{
-			if (p->_next != nullptr && p->_value > p->_next->_value)
+			return false;
+		}
+
+		ListElem* p = _first;
+		while (p->_next != nullptr)
+		{
+			if (p->_value > p->_next->_value)
 			{
 				return false;
 			}
@@ -195,19 +208,45 @@ public:
 		// Вставить в список новый элемент new_elem после value
 		// {4 7 6 5 7 8}. 6 2 {4 7 6 2 5 7 8}
 
-		if (!IsExist(value))
+		ListElem* p = _first;
+		//while (p != nullptr)
+		//{
+		//	if (p->_value == value)
+		//	{
+		//		ListElem* list_elem = new ListElem{ new_elem, p->_next };
+		//		p->_next = list_elem;
+		//		return;
+		//	}
+		//	p = p->_next;
+		//}
+
+		while (p != nullptr || p->_value != value)
+		{
+			p = p->_next;
+		}
+
+		if (p != nullptr)
+		{
+			ListElem* list_elem = new ListElem{ new_elem, p->_next };
+			p->_next = list_elem;
+		}
+	}
+
+	void AddBeforeIfExist(int value, int new_elem)
+	{
+		// Вставить в список новый элемент new_elem перед value
+		// {4 7 6 5 7 8}. 6 2 {4 7 2 6 5 7 8}
+		// Не решен случай, когда new_element ставиться первым
+
+		if (_first == nullptr)
 		{
 			return;
 		}
 
 		ListElem* p = _first;
-		while (p != nullptr)
+		while (p->_next != nullptr)
 		{
-			if (p->_next == nullptr)
-			{
-				return;
-			}
-			else if (p->_value == value)
+			if (p->_next->_value == value)
 			{
 				ListElem* list_elem = new ListElem{ new_elem, p->_next };
 				p->_next = list_elem;
@@ -217,44 +256,71 @@ public:
 		}
 	}
 
-	void AddBeforeIfExist(int value, int new_elem)
+	void SortList()
 	{
-		// Вставить в список новый элемент new_elem перед value
-		// {4 7 6 5 7 8}. 6 2 {4 7 2 6 5 7 8}
-
-		if (!IsExist(value))
-		{
-			return;
-		}
-
 		ListElem* p = _first;
 		ListElem* q = p;
+		int count = 0;
 		while (p != nullptr)
 		{
-			if (p->_next == nullptr)
+			
+			while (q != nullptr)
 			{
-				return;
+				if (q->_next != nullptr && q->_value > q->_next->_value)
+				{
+					AddBeforeIfExist(q->_value, q->_next->_value);
+				}
+				q = q->_next;
+				delete q->_next;
+		
 			}
-			else if (p->_value == value)
-			{
-				ListElem* list_elem = new ListElem{ new_elem, q->_next };
-				q->_next = list_elem;
-				return;
-			}
-			q = p;
 			p = p->_next;
 		}
 	}
 
+	// Добавить элемент чтоб список остался отсортированным, с учетом того, что список уже отсортирован
+	// 1,3,6,7,9   5 (если 5 меньше текущего элемента)
+	// Отдельные случаи 0 и конец списка
 
-	void AddValue(int value) // Добавить элемент чтоб список остался отсортированным
+	void AddValue(int value) 
 	{
+		if (_first == nullptr)
+		{
+			return;
+		}
 
+
+		if (_first->_value > value)
+		{
+			ListElem* list_elem = new ListElem{ value, _first };
+			_first = list_elem;
+			return;
+		}
+
+		ListElem* p = _first;
+
+		while (p->_next != nullptr)
+		{
+			if (p->_next->_value > value)
+			{
+				ListElem* list_elem = new ListElem{ value, p->_next };
+				p->_next = list_elem;
+				return;
+			}
+			p = p->_next;
+		}
+
+		if (p != nullptr)
+		{
+			ListElem* list_elem = new ListElem{ value, p->_next };
+			p->_next = list_elem;
+		}
 	}
 
 
 
-	void EraseValue(int value)
+	void EraseValue(int value) // Смена одного указателя
+
 	{
 
 	}
@@ -271,9 +337,22 @@ public:
 		return size;
 	}
 
-	~SortedList()
+	std::vector<int> GetSortedElems()
 	{
+		std::vector<int> result;
 
+		ListElem* p = _first;
+		while (p != nullptr)
+		{
+			result.push_back(p->_value);
+			p = p->_next;
+		}
+		return result;
+	}
+
+	~SortedList() // После удаления указателя p пользоваться нельзя 
+	{
+		
 	}
 };
 

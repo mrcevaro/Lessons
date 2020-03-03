@@ -121,40 +121,54 @@ void Lesson5Function3()
 {
 	SortedList list;
 	list.Print(); // 1 2
+	list.PushFront(6);
+	list.Print(); // 1 2
+	list.PushFront(5);
+	list.Print(); // 1 2
 	list.PushFront(3);
 	list.Print(); // 1 2
 	list.PushFront(2);
 	list.Print(); // 1 2
-	list.PushFront(1);
-	list.Print(); // 1 2
 
-	/*SortedList list;
-	list.Print();*/
-	list.PushBack(9);
-	list.Print(); 
-	list.PushBack(10);
+	list.AddValue(0);
 	list.Print();
-	list.PushBack(16);
-	list.Print();
-	list.PushBack(17);
-	list.Print();
-	list.PushBack(21);
-	list.Print();
-	list.PushBack(22);
-	list.Print();
+	///*SortedList list;
+	//list.Print();*/
+	//list.PushBack(9);
+	//list.Print(); 
+	//list.PushBack(10);
+	//list.Print();
+	//list.PushBack(16);
+	//list.Print();
+	//list.PushBack(17);
+	//list.Print();
+	//list.PushBack(21);
+	//list.Print();
+	//list.PushBack(7);
+	//list.Print();
 
-	list.AddAfterIfExist(22, 14);
-	list.Print();
+	//list.AddAfterIfExist(22, 14);
+	//list.Print();
 
-	list.AddBeforeIfExist(16, 15);
-	list.Print();
+	//list.AddBeforeIfExist(16, 15);
+	//list.Print();
 
-	list.PrintNextIfExist(10);
-	list.PrintPrevIfExist(10);
-	//list.IsExist(1);
-	//std::cout << list.IsExist(1) << std::endl;
-	
-	std::cout << "ElementsIsSorted: " <<list.IsSorted() << std::endl;
+	//list.PrintNextIfExist(10);
+	//list.PrintPrevIfExist(10);
+	////list.IsExist(1);
+	////std::cout << list.IsExist(1) << std::endl;
+	//std::cout << std::endl;
+
+	//std::cout << "ElementsIsSorted: " << list.IsSorted() << std::endl;
+	//std::cout << std::endl;
+/*
+	list.Print();
+	list.SortList();
+	list.Print();
+	*/
+
+
+
 }
 
 int main()
