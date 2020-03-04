@@ -48,6 +48,49 @@ public:
 			}
 		}
 	}
+
+	// Добавить элемент чтоб список остался отсортированным, с учетом того, что список уже отсортирован
+// 1,3,6,7,9   5 (если 5 меньше текущего элемента)
+// Отдельные случаи 0 и конец списка
+
+	void AddValue(int value)
+	{
+		// 0 1 2 3 4      
+		// 1 2 3 5   - 4,  
+		// 1 2 3 4 0 - 5
+		//if (_array)
+
+		if (_size == 0)
+		{
+			int* new_array = new int[_size + 1];
+			
+			_size = _size + 1;
+			delete[] _array;
+			_array = new_array;
+
+			_array[0] = value;
+			return;
+		}
+
+	
+
+		for (int i = 0; i < _size ; i++)
+		{
+			if (_array[i + 1] > value)
+			{
+				SetNewSize(_size + 1); // 1 2 3 5 - 4,  1 2 3 4 0 - 5
+				_array[i + 1] = value;
+				return;
+			}
+			if (value > _array[i])
+			{
+				SetNewSize(_size + 1);
+				_array[i] = value;
+				return;
+			}
+		}
+	}
+
 	~DynamicArray()
 	{
 		delete[] _array;
@@ -102,5 +145,13 @@ public:
 	void PopBack() 
 	{
 		_size -= 1;
+	}
+
+	void Print()
+	{
+		for (int i = 0; i < _size; i++) // Либо начинать с 1 либо объявлять массив 0 размера?
+		{
+			std::cout << _array[i] << std::endl;
+		}
 	}
 };

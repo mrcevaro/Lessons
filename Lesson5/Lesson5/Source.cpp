@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Array.h"
 #include "List.h"
-
+#include "DynamicArray.h"
 enum class Gender
 {
 	Male,
@@ -119,19 +119,45 @@ void Lesson5Function2()
 
 void Lesson5Function3()
 {
-	SortedList list;
-	list.Print(); // 1 2
-	list.PushFront(6);
-	list.Print(); // 1 2
-	list.PushFront(5);
-	list.Print(); // 1 2
-	list.PushFront(3);
-	list.Print(); // 1 2
-	list.PushFront(2);
-	list.Print(); // 1 2
+	DynamicArray dm(0);
 
-	list.AddValue(0);
-	list.Print();
+	dm.AddValue(1);
+	dm.Print();
+	dm.AddValue(2);
+	dm.Print();
+	dm.AddValue(3);
+	dm.Print();
+	dm.AddValue(5);
+	dm.Print();
+	dm.AddValue(6);
+	dm.Print();
+	dm.AddValue(4);
+	dm.Print();
+	/*SortedList list;
+
+	    list.AddValue(4);
+		list.Print();
+		list.AddValue(5);
+		list.Print();
+		list.AddValue(3);
+		list.Print();
+		list.AddValue(2);
+		list.Print();
+		list.AddValue(1);
+		list.Print();*/
+
+	//list.Print(); // 1 2
+	//list.PushFront(6);
+	//list.Print(); // 1 2
+	//list.PushFront(5);
+	//list.Print(); // 1 2
+	//list.PushFront(3);
+	//list.Print(); // 1 2
+	//list.PushFront(2);
+	//list.Print(); // 1 2
+
+	//list.AddValue(1);
+	//list.Print();
 	///*SortedList list;
 	//list.Print();*/
 	//list.PushBack(9);
