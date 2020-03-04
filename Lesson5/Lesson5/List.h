@@ -286,6 +286,7 @@ public:
 	{
 		if (_first == nullptr)
 		{
+			_first = new ListElem{ value, nullptr };
 			return;
 		}
 
@@ -350,9 +351,10 @@ public:
 		return result;
 	}
 
-	~SortedList() // После удаления указателя p пользоваться нельзя 
+	~SortedList() // После удаления указателя p пользоваться нельзя. Не понимаю в чем разница
 	{
-		
+		delete _first;
+		_first = nullptr;
 	}
 };
 
