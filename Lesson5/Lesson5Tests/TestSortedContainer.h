@@ -6,6 +6,8 @@
 
 #include "../Lesson5/List.h"
 
+
+
 template <class TContainer>
 long Test(const std::vector<int>& elems, const std::vector<int>& sorted_elems)
 {
@@ -50,4 +52,9 @@ void TestContainers(int elems_count)
 
 	//const auto array_time = Test<Array>(elems, sorted_elems);
 	const auto list_time = Test<SortedList>(elems, sorted_elems);
+}
+
+TEST(TestContainers, Test1)
+{
+	TestContainers(1000);
 }
