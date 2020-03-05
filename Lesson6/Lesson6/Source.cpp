@@ -26,6 +26,109 @@ public:
 	}
 };
 
+class Game
+{
+
+	struct AsteriskPosition
+	{
+		int x = 0;
+		int y = 0;
+	};
+
+	int _width = 50;
+	int _height = 10;
+
+	ConsoleHelper cs;
+	AsteriskPosition _asterisk_position{ 3, 5 };
+
+	
+
+	void SetPositionAsterisk(AsteriskPosition position)
+	{
+		_asterisk_position = position;
+	}
+
+	AsteriskPosition GetPositionAsterisk()
+	{
+		return _asterisk_position;
+	}
+
+	void ClearAsterisk()
+	{
+		cs.Print(GetPositionAsterisk().x, GetPositionAsterisk().y, ' ');
+	}
+	
+	
+
+public:
+	Game() {};
+	~Game() {};
+
+	
+	void ControlPositionAsterisk()
+	{
+		char ch = _getch();
+		
+		ClearAsterisk();
+
+		switch (ch)
+		{
+		case 'w': _asterisk_position.y--; break;
+		case 'a': _asterisk_position.x--; break;
+		case 's': _asterisk_position.y++; break;
+		case 'd': _asterisk_position.x++; break;
+		}
+	}
+
+	const void DrawingBorders()
+	{
+		ConsoleHelper cs;
+
+		for (int i = 0; i < _width + 1; i++)
+		{
+			cs.Print(i, 0, '#');
+			cs.Print(i, _height, '#');
+		}
+
+		for (int i = 0; i < _height; i++)
+		{
+			cs.Print(0, i, '#');
+			cs.Print(_width, i, '#');
+		}
+	}
+
+
+	const void setBorders(const int width, const int height)
+	{
+		_width = width;
+		_height = height;
+	}
+
+	void DrawingAsterisk()
+	{
+		CheckСrossBorderExpansion();
+		cs.Print(GetPositionAsterisk().x, GetPositionAsterisk().y, '*');
+	}
+	
+
+	void CheckСrossBorderExpansion()
+	{
+		if (GetPositionAsterisk().x > _width - 1)
+		{
+			_asterisk_position.x = GetPositionAsterisk().x - 1;
+		}
+
+		if (GetPositionAsterisk().y >= _height || GetPositionAsterisk().y == 0) 
+		{
+			_asterisk_position.y = GetPositionAsterisk().y - 1;
+		}
+
+	}
+	
+};
+
+
+
 //1. Зафиксировать размеры карты и нарисовать на границах стену из #.
 //2. Не позволять звездочке выходить за границу.
 //3. Заполнить массив стен рандомными стенами в количестве n штук.
@@ -33,10 +136,17 @@ public:
 //5. Не позволять звездочке наступать на стены.
 
 
+
+
 int main() 
 {
+	Game game;
+
 	ConsoleHelper cs;
 
+	game.setBorders(50, 10);
+	game.DrawingBorders();
+	   	   
 	int xx[10][10] = {0};
 
 	xx[3][4] = 1;
@@ -44,10 +154,10 @@ int main()
 	xx[3][7] = 1;
 	xx[3][9] = 1;
 
-	for (int i = 0; i <  4; i++)
+	/*for (int i = 0; i <  4; i++)
 	{
 		cs.Print(x, y, '#');
-	}
+	}*/
 
 	int x = 3;
 	int y = 5;
@@ -75,7 +185,7 @@ int main()
 
 	while (true)
 	{
-		char ch = _getch();
+		/*char ch = _getch();
 		cs.Print(x, y, ' ');
 
 		switch (ch)
@@ -86,7 +196,11 @@ int main()
 		case 'd': x++; break;
 		}
 		
-		cs.Print(x, y, '*');
+		game.
+		cs.Print(x, y, '*');*/
+		game.ControlPositionAsterisk();
+		game.DrawingAsterisk();
+		
 	}
 	
 	//std::cout << ch << std::endl;
