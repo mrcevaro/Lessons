@@ -2,6 +2,12 @@
 #include <iostream>
 #include <conio.h>
 
+struct Point
+{
+	int x = 0;
+	int y = 0;
+};
+
 class ConsoleHelper
 {
 
@@ -15,11 +21,11 @@ public:
 		info.dwSize = 100;
 		SetConsoleCursorInfo(_console_handle, &info);
 	}
-	void SetPosition(short x, short y)
+	void SetPosition(short x, short y) const
 	{
 		SetConsoleCursorPosition(_console_handle, { x, y });
 	}
-	void Print(short x, short y, char ch)
+	void Print(short x, short y, char ch) const
 	{
 		SetPosition( x, y);
 		std::cout.put(ch);
@@ -28,103 +34,73 @@ public:
 
 class Game
 {
+	static const char kWallSymbol = '#';
 
-	struct AsteriskPosition
-	{
-		int x = 0;
-		int y = 0;
-	};
-
-	int _width = 50;
-	int _height = 10;
+	const int _width = 50;
+	const int _height = 10;
 
 	ConsoleHelper cs;
-	AsteriskPosition _asterisk_position{ 3, 5 };
-
-	
-
-	void SetPositionAsterisk(AsteriskPosition position)
-	{
-		_asterisk_position = position;
-	}
-
-	AsteriskPosition GetPositionAsterisk()
-	{
-		return _asterisk_position;
-	}
+	Point _asterisk_position{ 3, 5 };
 
 	void ClearAsterisk()
 	{
-		cs.Print(GetPositionAsterisk().x, GetPositionAsterisk().y, ' ');
-	}
-	
-	
-
-public:
-	Game() {};
-	~Game() {};
-
-	
-	void ControlPositionAsterisk()
-	{
-		char ch = _getch();
-		
-		ClearAsterisk();
-
-		switch (ch)
-		{
-		case 'w': _asterisk_position.y--; break;
-		case 'a': _asterisk_position.x--; break;
-		case 's': _asterisk_position.y++; break;
-		case 'd': _asterisk_position.x++; break;
-		}
+		cs.Print(_asterisk_position.x, _asterisk_position.y, ' ');
 	}
 
-	const void DrawingBorders()
+	void DrawAsterisk()
 	{
-		ConsoleHelper cs;
+		cs.Print(_asterisk_position.x, _asterisk_position.y, '*');
+	}
 
+	bool IsOutOfField(Point position) const
+	{
+		return (position.x >= _width || position.y >= _height || position.x <= 0 || position.y <= 0);
+	}
+
+	void DrawBorders() const
+	{
 		for (int i = 0; i < _width + 1; i++)
 		{
-			cs.Print(i, 0, '#');
-			cs.Print(i, _height, '#');
+			cs.Print(i, 0, kWallSymbol);
+			cs.Print(i, _height, kWallSymbol);
 		}
 
-		for (int i = 0; i < _height; i++)
+		for (int j = 0; j < _height; j++)
 		{
-			cs.Print(0, i, '#');
-			cs.Print(_width, i, '#');
+			cs.Print(0, j, kWallSymbol);
+			cs.Print(_width, j, kWallSymbol);
 		}
 	}
 
-
-	const void setBorders(const int width, const int height)
+public:
+	Game(int width, int height)
+	: _width(width),
+	  _height(height)
 	{
-		_width = width;
-		_height = height;
+		DrawBorders();
 	}
 
-	void DrawingAsterisk()
+	void MoveAsterisk(char symbol)
 	{
-		CheckÑrossBorderExpansion();
-		cs.Print(GetPositionAsterisk().x, GetPositionAsterisk().y, '*');
-	}
-	
+		Point new_position = _asterisk_position;
 
-	void CheckÑrossBorderExpansion()
-	{
-		if (GetPositionAsterisk().x > _width - 1)
+		switch (symbol)
 		{
-			_asterisk_position.x = GetPositionAsterisk().x - 1;
+		case 'w': new_position.y--; break;
+		case 'a': new_position.x--; break;
+		case 's': new_position.y++; break;
+		case 'd': new_position.x++; break;
 		}
 
-		if (GetPositionAsterisk().y >= _height || GetPositionAsterisk().y == 0) 
+		if (IsOutOfField(new_position))
 		{
-			_asterisk_position.y = GetPositionAsterisk().y - 1;
+			return;
 		}
-
+		
+		ClearAsterisk();
+		_asterisk_position = new_position;
+		DrawAsterisk();
 	}
-	
 };
 
 
@@ -140,34 +116,31 @@ public:
 
 int main() 
 {
-	Game game;
+	Game game(20,20);
 
 	ConsoleHelper cs;
-
-	game.setBorders(50, 10);
-	game.DrawingBorders();
 	   	   
-	int xx[10][10] = {0};
-
-	xx[3][4] = 1;
-	xx[3][5] = 1;
-	xx[3][7] = 1;
-	xx[3][9] = 1;
-
-	/*for (int i = 0; i <  4; i++)
-	{
-		cs.Print(x, y, '#');
-	}*/
-
-	int x = 3;
-	int y = 5;
-
-
-	if(xx[x][y] == 1)
-	{
-	}
-
-	cs.Print(x, y, '*');
+	//int xx[10][10] = {0};
+	//
+	//xx[3][4] = 1;
+	//xx[3][5] = 1;
+	//xx[3][7] = 1;
+	//xx[3][9] = 1;
+	//
+	///*for (int i = 0; i <  4; i++)
+	//{
+	//	cs.Print(x, y, '#');
+	//}*/
+	//
+	//int x = 3;
+	//int y = 5;
+	//
+	//
+	//if(xx[x][y] == 1)
+	//{
+	//}
+	//
+	//cs.Print(x, y, '*');
 
 
 	/*while (true)
@@ -198,8 +171,20 @@ int main()
 		
 		game.
 		cs.Print(x, y, '*');*/
-		game.ControlPositionAsterisk();
-		game.DrawingAsterisk();
+		//char ch = _getch();
+
+		char ch;
+		switch (std::rand() % 4)
+		{
+		case 0: ch = 'w'; break;
+		case 1: ch = 'a'; break;
+		case 2: ch = 's'; break;
+		case 3: ch = 'd'; break;
+		default:
+			break;
+		}
+
+		game.MoveAsterisk(ch);
 		
 	}
 	
