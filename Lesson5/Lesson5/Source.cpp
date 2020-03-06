@@ -3,6 +3,9 @@
 #include "Array.h"
 #include "List.h"
 #include "DynamicArray.h"
+#include "SortedContainerBench.h"
+
+
 enum class Gender
 {
 	Male,
@@ -68,8 +71,6 @@ void Lesson5Function1()
 
 		std::cout << arr.GetValue(2) << std::endl;
 	}
-
-	int a;
 
 	int arr[5];
 
@@ -199,7 +200,10 @@ void Lesson5Function3()
 
 int main()
 {
-	Lesson5Function3();
+	TestContainersSquared();
+
+	//Lesson5Function3();
+
 
 	//Date date;
 	//date.year = 3;

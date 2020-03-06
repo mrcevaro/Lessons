@@ -32,6 +32,9 @@
     <ClInclude Include="CountersNumbers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SortedContainerBench.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Tasks.txt">
