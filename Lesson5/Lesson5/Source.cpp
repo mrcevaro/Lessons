@@ -4,7 +4,7 @@
 #include "List.h"
 #include "DynamicArray.h"
 #include "SortedContainerBench.h"
-
+#include "Tree.h"
 
 enum class Gender
 {
@@ -198,9 +198,60 @@ void Lesson5Function3()
 
 }
 
+
+void f(int a)
+{
+	std::cout << a << std::endl;
+	if (a > 0) 
+	{
+		f(a - 1);
+	}
+}
+
+// Считает факториал числа
+int Factorial(int value)
+{
+	if (value == 1)
+	{
+		return 1;
+	}
+	// value! = value * (value - 1)!
+	return value * Factorial(value - 1);
+}
+
 int main()
 {
-	TestContainersSquared();
+	Tree tree;
+
+	for (int i = 0; i < 100; i++)
+	{
+		tree.AddValue(std::rand() % 100);
+	}
+
+	tree.Print();
+
+
+	// 10!  = 10*9*8*7*6*5*4*3*2*1
+    // 10!  = 10*9!
+	//int a = 1;
+	//for (int i = 1; i < 11; i++)
+	//{
+	//	a *= i;
+	//}
+
+	//std::cout << Factorial(10) << std::endl;
+/*
+	for (int i = 0; i < 1000000; i++)
+	{
+		SortedList list;
+		for (int j = 0; j < 10000; j++)
+		{
+			list.PushFront(j);
+		}
+
+	}
+*/
+	//TestContainersSquared();
 
 	//Lesson5Function3();
 

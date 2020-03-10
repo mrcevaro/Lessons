@@ -2,8 +2,10 @@
 
 class DynamicArray
 {
-	int _size = 0;
+	int _size = 0; // Размер массива на текущий момент
+	int _capacity = 0; // Сколько памяти выделлено на самом деле
 	int* _array = nullptr;
+
 
 	bool IsOutOfRange(int index) const
 	{
@@ -133,12 +135,20 @@ public:
 		_array = new_array;
 	}
 
+	// Сделать функцию setNewCapacity
+
 	//2.4.Метод PushBack(int value).Добавляет value в конец массива и увеличивает размер массива на 1.
 //Например был массив 1 2 3 4. Вызвали PushBack(13).Массив стал 1 2 3 4 13.
 	void PushBack(int value) 
 	{
-		SetNewSize(_size + 1);
-		_array[_size - 1] = value;
+		if (_size < _capacity) 
+		{
+			_size += 1;
+
+			//SetNewSize(_size + 1); 
+			_array[_size - 1] = value;
+		}
+
 	}
 
 	//2.5.Метод PopBack().Выкидывает из массива последний элемент.Уменьшает размер на 1.
