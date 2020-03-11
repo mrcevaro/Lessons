@@ -6,6 +6,7 @@ class DynamicArray
 	int _capacity = 0; // Сколько памяти выделлено на самом деле
 	int* _array = nullptr;
 
+	static const int capacity_value_incriment = 5;
 
 	bool IsOutOfRange(int index) const
 	{
@@ -24,13 +25,16 @@ public:
 	DynamicArray(int size)
 		: _size(size)
 	{
-		_array = new int[_size];
+		_capacity = _size + capacity_value_incriment;
+		_array = new int[_capacity];
 	}
 
 	DynamicArray(int size, int value)
 		: _size(size)
 	{
-		_array = new int[_size];
+		_capacity = _size + capacity_value_incriment;
+		_array = new int[_capacity];
+
 		for (int i = 0; i < _size; i++)
 		{
 			_array[i] = value;
@@ -40,8 +44,9 @@ public:
 	DynamicArray(int size, int min, int max)
 		: _size(size)
 	{
-		_array = new int[_size];
-
+		_capacity = _size + capacity_value_incriment;
+		_array = new int[_capacity];
+		
 		for (int i = 0; i < _size; i++)
 		{
 			for (int i = 0; i < _size; i++)
@@ -136,6 +141,25 @@ public:
 	}
 
 	// Сделать функцию setNewCapacity
+	void SetNewCapacity()
+	{
+		static const int new_capacity = capacity_value_incriment + _capacity;
+		
+		int* new_array = new int[new_capacity];
+		for (int i = 0; i < _capacity; i++)
+		{
+			new_array[i] = _array[i];
+		}
+		for (int i = _capacity; i < new_capacity; i++)
+		{
+			new_array[i] = 0;
+		}
+		_capacity = new_capacity;
+		delete[] _array;
+		_array = new_array;
+	}
+
+
 
 	//2.4.Метод PushBack(int value).Добавляет value в конец массива и увеличивает размер массива на 1.
 //Например был массив 1 2 3 4. Вызвали PushBack(13).Массив стал 1 2 3 4 13.
@@ -144,11 +168,12 @@ public:
 		if (_size < _capacity) 
 		{
 			_size += 1;
-
-			//SetNewSize(_size + 1); 
-			_array[_size - 1] = value;
 		}
-
+		else
+		{
+			SetNewCapacity();
+		}
+		_array[_size - 1] = value;
 	}
 
 	//2.5.Метод PopBack().Выкидывает из массива последний элемент.Уменьшает размер на 1.

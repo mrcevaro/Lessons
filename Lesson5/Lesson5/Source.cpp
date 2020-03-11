@@ -120,20 +120,22 @@ void Lesson5Function2()
 
 void Lesson5Function3()
 {
-	DynamicArray dm(0);
+	DynamicArray dm(1);
+	dm.PushBack(10);
 
-	dm.AddValue(1);
 	dm.Print();
-	dm.AddValue(2);
-	dm.Print();
-	dm.AddValue(3);
-	dm.Print();
-	dm.AddValue(5);
-	dm.Print();
-	dm.AddValue(6);
-	dm.Print();
-	dm.AddValue(4);
-	dm.Print();
+	//dm.AddValue(1);
+	//dm.Print();
+	//dm.AddValue(2);
+	//dm.Print();
+	//dm.AddValue(3);
+	//dm.Print();
+	//dm.AddValue(5);
+	//dm.Print();
+	//dm.AddValue(6);
+	//dm.Print();
+	//dm.AddValue(4);
+	//dm.Print();
 	/*SortedList list;
 
 	    list.AddValue(4);
@@ -221,14 +223,14 @@ int Factorial(int value)
 
 int main()
 {
-	Tree tree;
+	/*Tree tree;
 
 	for (int i = 0; i < 100; i++)
 	{
 		tree.AddValue(std::rand() % 100);
 	}
 
-	tree.Print();
+	tree.Print();*/
 
 
 	// 10!  = 10*9*8*7*6*5*4*3*2*1
@@ -253,7 +255,7 @@ int main()
 */
 	//TestContainersSquared();
 
-	//Lesson5Function3();
+	Lesson5Function3();
 
 
 	//Date date;
