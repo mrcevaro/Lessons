@@ -86,6 +86,8 @@ void F2()
 	employee->_id = 5;
 	employee->_salary = 3000;
 
+	Human* p = student;
+
 	Human* humans[2];
 	humans[0] = student;
 	humans[1] = employee;
@@ -95,9 +97,10 @@ void F2()
 	delete humans[0];
 }
 
+#include "Lesson.h"
 
 void main()
 {
-	F2();
+	f();
 	std::system("pause");
 }
