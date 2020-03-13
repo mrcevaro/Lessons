@@ -200,6 +200,36 @@ void Lesson5Function3()
 
 }
 
+struct ListElem
+{
+	int value;
+	ListElem* _next;
+	ListElem* _prev;
+}
+
+class List
+{
+	ListElem* _first;
+
+
+	void Erase(int value)
+	{
+		// 4 3 8 5 4 2 3
+		                  p
+		//  4 3 <-> 8 <-> 5 <-> 4 <-> 2
+		//  4 3 <-> 8 <->       4 <-> 2
+
+		for (auto p = _first; p != nullptr; p = p->_next)
+		{
+			if (p->value == value)
+			{
+				p->_prev->_next = p->_next;
+			}
+		}
+	}
+};
+
+
 
 void f(int a)
 {

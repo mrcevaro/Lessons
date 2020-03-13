@@ -10,7 +10,6 @@ struct Point
 
 class ConsoleHelper
 {
-
 	HANDLE _console_handle;
 	CONSOLE_CURSOR_INFO info;
 public:
@@ -96,7 +95,7 @@ public:
 		{
 			return;
 		}
-		
+
 		ClearAsterisk();
 		_asterisk_position = new_position;
 		DrawAsterisk();
