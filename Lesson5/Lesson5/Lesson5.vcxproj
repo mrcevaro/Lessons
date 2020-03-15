@@ -130,6 +130,7 @@
     <ClInclude Include="CountersNumbers.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="SortedArray.h" />
     <ClInclude Include="SortedContainerBench.h" />
     <ClInclude Include="Tree.h" />
   </ItemGroup>

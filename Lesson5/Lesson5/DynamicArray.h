@@ -30,10 +30,8 @@ public:
 	}
 
 	DynamicArray(int size, int value)
-		: _size(size)
+		: DynamicArray (size)
 	{
-		_capacity = _size + capacity_value_incriment;
-		_array = new int[_capacity];
 
 		for (int i = 0; i < _size; i++)
 		{
@@ -42,11 +40,8 @@ public:
 	}
 
 	DynamicArray(int size, int min, int max)
-		: _size(size)
+		: DynamicArray(size)
 	{
-		_capacity = _size + capacity_value_incriment;
-		_array = new int[_capacity];
-		
 		for (int i = 0; i < _size; i++)
 		{
 			for (int i = 0; i < _size; i++)
@@ -143,7 +138,7 @@ public:
 	// Сделать функцию setNewCapacity
 	void SetNewCapacity()
 	{
-		static const int new_capacity = capacity_value_incriment + _capacity;
+		const int new_capacity = capacity_value_incriment + _capacity;
 		
 		int* new_array = new int[new_capacity];
 		for (int i = 0; i < _capacity; i++)

@@ -3,6 +3,7 @@
 #include "Array.h"
 #include "List.h"
 #include "DynamicArray.h"
+#include "SortedArray.h"
 #include "SortedContainerBench.h"
 #include "Tree.h"
 
@@ -120,10 +121,20 @@ void Lesson5Function2()
 
 void Lesson5Function3()
 {
+	SortedArray sa(6);
+	sa.AddValue(1);
+	sa.AddValue(2);
+	sa.AddValue(3);
+	sa.AddValue(5);
+	sa.AddValue(4);
+
+	sa.Print();
+
+	/*
 	DynamicArray dm(1);
 	dm.PushBack(10);
 
-	dm.Print();
+	dm.Print();*/
 	//dm.AddValue(1);
 	//dm.Print();
 	//dm.AddValue(2);
