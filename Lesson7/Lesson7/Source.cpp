@@ -98,9 +98,12 @@ void F2()
 }
 
 #include "Lesson.h"
+#include "Templates.h"
 
 void main()
 {
-	f();
+	Templates::tt();
+	//f();
 	std::system("pause");
+	
 }
