@@ -126,6 +126,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inheritance.h" />
     <ClInclude Include="Lesson.h" />
     <ClInclude Include="Templates.h" />
   </ItemGroup>
