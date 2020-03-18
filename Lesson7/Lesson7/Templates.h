@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 
 //int Sqr(int a)

@@ -1,12 +1,13 @@
 
-#include "Lesson.h"
+//#include "Lesson.h"
 #include "Inheritance.h"
-#include "Templates.h"
+//#include "Templates.h"
 
 void main()
 {
-	Templates::tt();
+	//Templates::tt();
 	//f();
+	F3();
 	std::system("pause");
 	
 }
