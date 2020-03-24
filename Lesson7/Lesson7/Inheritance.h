@@ -79,6 +79,8 @@ struct Employee : Human
 	int	   _id;
 	int	   _salary;
 	
+	Employee () {}
+
 	Employee(std::string name, int age, Gender gender, int id, int salary)
 		: Human(name, age, gender),
 		  _id(id),
@@ -90,6 +92,8 @@ struct TaxiDriver : Employee
 {
 	int	   _taxi_id;
 
+	TaxiDriver() {}
+
 	TaxiDriver(std::string name, int age, Gender gender, int id, int salary, int taxi_id)
 		: Employee(name, age, gender, id, salary),
 		  _taxi_id(taxi_id)
@@ -99,6 +103,9 @@ struct TaxiDriver : Employee
 struct Seller : Employee
 {
 	int	   _market_id;
+	
+	Seller() {}
+
 	Seller(std::string name, int age, Gender gender, int id, int salary, int _market_id)
 		: Employee(name, age, gender, id, salary),
 		_market_id(_market_id)
@@ -154,8 +161,7 @@ struct Seller : Employee
 
 Gender GetRandomGender()
 {
-	
-	switch (std::rand() % (1 - 0 + 1) + 0)
+	switch (std::rand() % 2)
 	{
 	case 0:
 		return Gender::Male;
@@ -166,29 +172,108 @@ Gender GetRandomGender()
 	}
 }
 
+std::string PrintRandomGender(Gender& gd)
+{
+	switch (gd)
+	{
+	case Gender::Male:
+		return "Male";
+		break;
+	case Gender::Female:
+		return "Female" ;
+		break;
+	}
+}
+
 void F3()
 {
 	std::string kNames[5] = { "Andrey", "Egor", "Vasya", "Petya", "Igor" };
-	
+
 	Student* students = new Student[10];
 	for (int i = 0; i < 10; i++)
 	{
-		students[i]._name = kNames[0];//kNames[std::rand() % (5 - 0 + 1) + 0];
+		students[i]._name = kNames[std::rand() % 5];
 		students[i]._age = std::rand() % (45 - 17 + 1) + 17;
-		students[i]._gender = Gender::Female;//GetRandomGender();
-		students[i]._mark = 2.2;// double(std::rand() % (10 - 0 + 0));
-		students[i]._group = std::rand() % 10 + 1;
+		students[i]._gender = GetRandomGender();
+		students[i]._mark = (double)(rand() % 100) / 10;
+		students[i]._group = std::rand() % 100;
 	}
 
-	
+	std::cout << " Students: " << std::endl;
 	for (int i = 0; i < 10; i++)
 	{
-		std::cout << students[i]._name  << " ";
-		std::cout << students[i]._age   << " ";
-		std::cout << students[i]._gender<< " ";
-		std::cout << students[i]._mark  << " ";
+		std::cout << students[i]._name << " ";
+		std::cout << students[i]._age << " ";
+		std::cout << PrintRandomGender(students[i]._gender) << " ";
+		std::cout << students[i]._mark << " ";
 		std::cout << students[i]._group << " ";
 		std::cout << std::endl;
 	}
-		delete [] students;
+	
+
+	TaxiDriver* taxidrivers = new TaxiDriver[10];
+
+	for (int i = 0; i < 10; i++)
+	{
+		taxidrivers[i]._name = kNames[std::rand() % 5];
+		taxidrivers[i]._age = std::rand() % (45 - 17 + 1) + 17;
+		taxidrivers[i]._gender = GetRandomGender();
+		taxidrivers[i]._taxi_id = std::rand() % 100;
+	}
+	std::cout << " TaxiDrivers: " << std::endl;
+
+	for (int i = 0; i < 10; i++)
+	{
+		std::cout << taxidrivers[i]._name << " ";
+		std::cout << taxidrivers[i]._age << " ";
+		std::cout << PrintRandomGender(taxidrivers[i]._gender) << " ";
+		std::cout << taxidrivers[i]._taxi_id << " ";
+		std::cout << std::endl;
+	}
+	
+
+	Seller* sellers = new Seller[10];
+	for (int i = 0; i < 10; i++)
+	{
+		sellers[i]._name = kNames[std::rand() % 5];
+		sellers[i]._age = std::rand() % (45 - 17 + 1) + 17;
+		sellers[i]._gender = GetRandomGender();
+		sellers[i]._salary = std::rand() % 100;
+		sellers[i]._market_id = std::rand() % 100;
+	}
+	std::cout << "Sellers: " << std::endl;
+	for (int i = 0; i < 10; i++)
+	{
+		std::cout << sellers[i]._name << " ";
+		std::cout << sellers[i]._age << " ";
+		std::cout << PrintRandomGender(sellers[i]._gender) << " ";
+		std::cout << sellers[i]._salary << " ";
+		std::cout << sellers[i]._market_id << " ";
+		std::cout << std::endl;
+	}
+	
+
+
+	Employee employeers[20];
+	
+	for (int i = 0; i < 20; i++) 
+	{
+		if (i < 10)
+		{
+			employeers[i] = taxidrivers[i];
+		}
+		else
+		{
+			employeers[i] = sellers[i];
+		}
+	}
+
+	for (int i = 0; i < 20; i++)
+	{
+
+	}
+
+	delete[] students;
+	delete[] taxidrivers;
+	delete[] sellers;
 }
