@@ -38,9 +38,6 @@
     <ClInclude Include="Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SortedArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Tasks.txt">

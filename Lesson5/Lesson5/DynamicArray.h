@@ -22,6 +22,8 @@ class DynamicArray
 	}
 
 public:
+	DynamicArray(){}
+
 	DynamicArray(int size)
 		: _size(size)
 	{
@@ -57,40 +59,23 @@ public:
 
 	void AddValue(int value)
 	{
-		// 0 1 2 3 4      
-		// 1 2 3 5   - 4,  
-		// 1 2 3 4 0 - 5
-		//if (_array)
-
+	
 		if (_size == 0)
 		{
-			int* new_array = new int[_size + 1];
-			
-			_size = _size + 1;
-			delete[] _array;
-			_array = new_array;
-
-			_array[0] = value;
-			return;
+			PushBack(value);
 		}
 
-	
-
-		for (int i = 0; i < _size ; i++)
+		for (int i = 0; i < _size; i++)
 		{
-			if (_array[i + 1] > value)
-			{
-				SetNewSize(_size + 1); // 1 2 3 5 - 4,  1 2 3 4 0 - 5
-				_array[i + 1] = value;
-				return;
-			}
+
 			if (value > _array[i])
 			{
-				SetNewSize(_size + 1);
-				_array[i] = value;
-				return;
+				int temp = _array[i];
+				PushBack(value);
+				_array[i] = temp;
 			}
 		}
+		
 	}
 
 	~DynamicArray()
