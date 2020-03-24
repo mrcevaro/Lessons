@@ -120,20 +120,32 @@ void Lesson5Function2()
 
 void Lesson5Function3()
 {
-	DynamicArray dm(0);
+	//SortedArray sa(6);
+	//sa.AddValue(1);
+	//sa.AddValue(2);
+	//sa.AddValue(3);
+	//sa.AddValue(5);
+	//sa.AddValue(4);
 
-	dm.AddValue(1);
-	dm.Print();
-	dm.AddValue(2);
-	dm.Print();
-	dm.AddValue(3);
-	dm.Print();
-	dm.AddValue(5);
-	dm.Print();
-	dm.AddValue(6);
-	dm.Print();
-	dm.AddValue(4);
-	dm.Print();
+	//sa.Print();
+
+	/*
+	DynamicArray dm(1);
+	dm.PushBack(10);
+
+	dm.Print();*/
+	//dm.AddValue(1);
+	//dm.Print();
+	//dm.AddValue(2);
+	//dm.Print();
+	//dm.AddValue(3);
+	//dm.Print();
+	//dm.AddValue(5);
+	//dm.Print();
+	//dm.AddValue(6);
+	//dm.Print();
+	//dm.AddValue(4);
+	//dm.Print();
 	/*SortedList list;
 
 	    list.AddValue(4);
@@ -198,6 +210,36 @@ void Lesson5Function3()
 
 }
 
+//struct ListElem
+//{
+//	int value;
+//	ListElem* _next;
+//	ListElem* _prev;
+//}
+//
+//class List
+//{
+//	ListElem* _first;
+//
+//
+//	void Erase(int value)
+//	{
+//		// 4 3 8 5 4 2 3
+//		                  p
+//		//  4 3 <-> 8 <-> 5 <-> 4 <-> 2
+//		//  4 3 <-> 8 <->       4 <-> 2
+//
+//		for (auto p = _first; p != nullptr; p = p->_next)
+//		{
+//			if (p->value == value)
+//			{
+//				p->_prev->_next = p->_next;
+//			}
+//		}
+//	}
+//};
+
+
 
 void f(int a)
 {
@@ -221,14 +263,34 @@ int Factorial(int value)
 
 int main()
 {
-	Tree tree;
+	
+	DynamicArray dm;
+	//dm.PushBack(10);
+
+	dm.AddValue(1);
+	dm.AddValue(2);
+	dm.AddValue(3);
+	dm.AddValue(4);
+	dm.AddValue(5);
+	dm.Print();
+	/*dm.AddValue(2);
+	dm.Print();
+	dm.AddValue(3);
+	dm.Print();
+	dm.AddValue(5);
+	dm.Print();
+	dm.AddValue(6);
+	dm.Print();
+	dm.AddValue(4);
+	dm.Print();*/
+	/*Tree tree;
 
 	for (int i = 0; i < 100; i++)
 	{
 		tree.AddValue(std::rand() % 100);
 	}
 
-	tree.Print();
+	tree.Print();*/
 
 
 	// 10!  = 10*9*8*7*6*5*4*3*2*1

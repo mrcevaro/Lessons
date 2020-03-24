@@ -18,30 +18,19 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Inheritance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Array.h">
+    <ClInclude Include="Lesson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
+    <ClInclude Include="Inheritance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicArray.h">
+    <ClInclude Include="Templates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CountersNumbers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SortedContainerBench.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Tasks.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>
