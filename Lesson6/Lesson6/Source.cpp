@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <iostream>
 #include <conio.h>
+#include <math.h>
 
 struct Point
 {
@@ -37,6 +38,9 @@ class Game
 
 	const int _width = 50;
 	const int _height = 10;
+	
+	static const int _count_wals = 3;
+	int _wals[_count_wals][_count_wals] = {};
 
 	ConsoleHelper cs;
 	Point _asterisk_position{ 3, 5 };
@@ -56,6 +60,11 @@ class Game
 		return (position.x >= _width || position.y >= _height || position.x <= 0 || position.y <= 0);
 	}
 
+	bool IsWal(Point position)
+	{
+		return (_wals[position.x][position.y] == 1);
+	}
+
 	void DrawBorders() const
 	{
 		for (int i = 0; i < _width + 1; i++)
@@ -71,12 +80,35 @@ class Game
 		}
 	}
 
+	void AddWals() 
+	{
+		for (int i = 0; i < _count_wals; i++) {
+			for (int j = 0; j < _count_wals; j++) {
+				_wals[i][j] = rand() % 2;
+			}
+		}
+	}
+
+	void DrawWals() const
+	{
+		for (int i = 0; i < _count_wals; i++) {
+			for (int j = 0; j < _count_wals; j++) {
+				if (_wals[i][j] == 1)
+				{
+					cs.Print(i, j, kWallSymbol);
+				}
+			}
+		}
+	}
+
 public:
 	Game(int width, int height)
 	: _width(width),
 	  _height(height)
 	{
+		AddWals();
 		DrawBorders();
+		DrawWals();
 	}
 
 	void MoveAsterisk(char symbol)
@@ -91,7 +123,7 @@ public:
 		case 'd': new_position.x++; break;
 		}
 
-		if (IsOutOfField(new_position))
+		if (IsOutOfField(new_position) || IsWal(new_position))
 		{
 			return;
 		}
@@ -106,7 +138,6 @@ public:
 
 //1. Зафиксировать размеры карты и нарисовать на границах стену из #.
 //2. Не позволять звездочке выходить за границу.
-
 //2.5 При вверх  - есть бага
 //3. Заполнить массив стен рандомными стенами в количестве n штук.
 //4. Нарисовать стены из массива.
@@ -114,7 +145,20 @@ public:
 
 
 
-
+char RandomMove() 
+{
+	char ch;
+	switch (std::rand() % 4)
+	{
+	case 0: ch = 'w'; break;
+	case 1: ch = 'a'; break;
+	case 2: ch = 's'; break;
+	case 3: ch = 'd'; break;
+	default:
+		break;
+	}
+	return ch;
+}
 
 
 int main() 
@@ -174,20 +218,9 @@ int main()
 		
 		game.
 		cs.Print(x, y, '*');*/
-		//char ch = _getch();
-
-		char ch;
-		switch (std::rand() % 4)
-		{
-		case 0: ch = 'w'; break;
-		case 1: ch = 'a'; break;
-		case 2: ch = 's'; break;
-		case 3: ch = 'd'; break;
-		default:
-			break;
-		}
-
+		char ch = _getch();
 		game.MoveAsterisk(ch);
+		//game.MoveAsterisk(RandomMove());
 		
 	}
 	
