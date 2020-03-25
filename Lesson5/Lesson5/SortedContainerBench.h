@@ -48,7 +48,7 @@ void TestContainers(int elems_count)
 	auto sorted_elems = elems;
 	std::sort(sorted_elems.begin(), sorted_elems.end());
 
-	//const auto array_time = Test<Array>(elems, sorted_elems);
+	const auto array_time = Test<DynamicArray>(elems, sorted_elems);
 	const auto list_time = Test<SortedList>(elems, sorted_elems);
 
 	std::cout << "Results for size " << elems_count << ":\n";

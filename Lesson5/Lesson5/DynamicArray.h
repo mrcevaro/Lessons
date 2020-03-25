@@ -63,19 +63,44 @@ public:
 		if (_size == 0)
 		{
 			PushBack(value);
+			return;
 		}
 
 		for (int i = 0; i < _size; i++)
 		{
-
-			if (value > _array[i])
+			if (value < _array[i])
 			{
-				int temp = _array[i];
-				PushBack(value);
-				_array[i] = temp;
+				// _4_
+				// 1 2 3 5 7 8 9
+				// i = 3
+
+				PushBack(_array[_size - 1]);
+				// 1 2 3 5 7 8 9 9
+				// _size == 8
+
+				// [6, 4]
+				for (int j = _size - 2; j > i; j--)
+				{
+					_array[j] = _array[j - 1];
+				}
+
+				// j = 6. _array[6] = _array[5];
+				// 1 2 3 5 7 8 8 9
+
+				// j = 5. _array[5] = _array[4];
+				// 1 2 3 5 7 7 8 9
+
+				// j = 4. _array[4]= _array[3];
+				// 1 2 3 5 5 7 8 9
+
+				_array[i] = value;
+				// 1 2 3 4 5 7 8 9
+				return;
 			}
 		}
 		
+		PushBack(value);
+		// 1 2 3 4 _10_
 	}
 
 	~DynamicArray()

@@ -163,36 +163,45 @@ Gender GetRandomGender()
 {
 	switch (std::rand() % 2)
 	{
-	case 0:
-		return Gender::Male;
-		break;
-	case 1:
-		return Gender::Female;
-		break;
+	case 0: return Gender::Male;   break;
+	case 1: return Gender::Female; break;
 	}
 }
 
-std::string PrintRandomGender(Gender& gd)
+std::string PrintRandomGender(Gender gd)
 {
 	switch (gd)
 	{
-	case Gender::Male:
-		return "Male";
-		break;
-	case Gender::Female:
-		return "Female" ;
-		break;
+	case Gender::Male:  return "Male"; break;
+	case Gender::Female:return "Female"; break;
 	}
 }
 
 void F3()
 {
-	std::string kNames[5] = { "Andrey", "Egor", "Vasya", "Petya", "Igor" };
+	static const std::string kNames[5] = { "Andrey", "Egor", "Vasya", "Petya", "Igor" };
+
+	//Student* students_dyn[10];
+	//int count = 10;
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	students_dyn[i] = new Student(kNames[std::rand() % 5],
+	//					  std::rand() % (45 - 17 + 1) + 17,
+	//					  GetRandomGender(),
+	//					  (double)(rand() % 100) / 10,
+	//					  std::rand() % 100);
+	//}
+	//
+	//// 4
+	//delete students_dyn[4];
+	//students_dyn[4] = students_dyn[count - 1];
+	//count--;
+	
 
 	Student* students = new Student[10];
 	for (int i = 0; i < 10; i++)
 	{
-		students[i]._name = kNames[std::rand() % 5];
+		students[i]._name = kNames[std::rand() % std::size(kNames)];
 		students[i]._age = std::rand() % (45 - 17 + 1) + 17;
 		students[i]._gender = GetRandomGender();
 		students[i]._mark = (double)(rand() % 100) / 10;
@@ -251,22 +260,35 @@ void F3()
 		std::cout << sellers[i]._market_id << " ";
 		std::cout << std::endl;
 	}
+
+	//TaxiDriver td;
+	//Employee e;
+	//
+	//e = td;
+	//
+	//TaxiDriver* ptd;
+	//Employee* pe;
+	//
+	//pe = ptd;
 	
-
-
 	Employee employeers[20];
 	
 	for (int i = 0; i < 20; i++) 
 	{
 		if (i < 10)
 		{
-			employeers[i] = taxidrivers[i];
+			employeers[i] = taxidrivers[i]; // Копируешь
 		}
 		else
 		{
-			employeers[i] = sellers[i];
+			employeers[i] = sellers[i - 10];
 		}
 	}
+
+	
+
+	// taxidrivers[3]._age++;
+	// employeers[3]
 
 	for (int i = 0; i < 20; i++)
 	{

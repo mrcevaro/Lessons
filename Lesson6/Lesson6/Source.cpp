@@ -36,23 +36,31 @@ class Game
 {
 	static const char kWallSymbol = '#';
 
-	const int _width = 50;
-	const int _height = 10;
+	static const int kSnakeSize = 10;
+
+	static const int _width = 30;
+	static const int _height = 20;
 	
-	static const int _count_wals = 3;
-	int _wals[_count_wals][_count_wals] = {};
+	int _wals[_width][_height] = {};
 
 	ConsoleHelper cs;
-	Point _asterisk_position{ 3, 5 };
+	Point _asterisk_positions[kSnakeSize];
 
 	void ClearAsterisk()
 	{
-		cs.Print(_asterisk_position.x, _asterisk_position.y, ' ');
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, ' ');
+		}
 	}
 
-	void DrawAsterisk()
+	void DrawAsterisks()
 	{
-		cs.Print(_asterisk_position.x, _asterisk_position.y, '*');
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, '*');
+		}
+		
 	}
 
 	bool IsOutOfField(Point position) const
@@ -82,17 +90,21 @@ class Game
 
 	void AddWals() 
 	{
-		for (int i = 0; i < _count_wals; i++) {
-			for (int j = 0; j < _count_wals; j++) {
-				_wals[i][j] = rand() % 2;
+		for (int i = 0; i < _width; i++) 
+		{
+			for (int j = 0; j < _height; j++) 
+			{
+				_wals[i][j] = rand() % 100 > 100;
 			}
 		}
 	}
 
 	void DrawWals() const
 	{
-		for (int i = 0; i < _count_wals; i++) {
-			for (int j = 0; j < _count_wals; j++) {
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
 				if (_wals[i][j] == 1)
 				{
 					cs.Print(i, j, kWallSymbol);
@@ -101,11 +113,21 @@ class Game
 		}
 	}
 
-public:
-	Game(int width, int height)
-	: _width(width),
-	  _height(height)
+	void GenerateSnake()
 	{
+		// 1, height / 2
+		// 2, height / 2
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			_asterisk_positions[i].x = 1 + i;
+			_asterisk_positions[i].y = _height / 2;
+		}
+	}
+
+public:
+	Game()
+	{
+		GenerateSnake();
 		AddWals();
 		DrawBorders();
 		DrawWals();
@@ -113,7 +135,7 @@ public:
 
 	void MoveAsterisk(char symbol)
 	{
-		Point new_position = _asterisk_position;
+		Point new_position = _asterisk_positions[0];
 
 		switch (symbol)
 		{
@@ -129,8 +151,8 @@ public:
 		}
 
 		ClearAsterisk();
-		_asterisk_position = new_position;
-		DrawAsterisk();
+		_asterisk_positions[0] = new_position;
+		DrawAsterisks();
 	}
 };
 
@@ -163,7 +185,7 @@ char RandomMove()
 
 int main() 
 {
-	Game game(20,20);
+	Game game;
 
 	ConsoleHelper cs;
 	   	   

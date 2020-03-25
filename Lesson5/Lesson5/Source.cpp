@@ -263,7 +263,9 @@ int Factorial(int value)
 
 int main()
 {
-	
+	TestContainersSquared();
+	std::system("pause");
+	return 0;
 	DynamicArray dm;
 	//dm.PushBack(10);
 
