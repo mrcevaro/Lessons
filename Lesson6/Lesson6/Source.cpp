@@ -94,7 +94,7 @@ class Game
 		{
 			for (int j = 0; j < _height; j++) 
 			{
-				_wals[i][j] = rand() % 100 > 100;
+				_wals[i][j] = rand() % 100 > 80;
 			}
 		}
 	}
@@ -137,6 +137,8 @@ public:
 	{
 		Point new_position = _asterisk_positions[0];
 
+
+
 		switch (symbol)
 		{
 		case 'w': new_position.y--; break;
@@ -152,6 +154,11 @@ public:
 
 		ClearAsterisk();
 		_asterisk_positions[0] = new_position;
+		for (int i = kSnakeSize; i > 0; i--)
+		{
+			_asterisk_positions[i] = _asterisk_positions[i - 1];
+		}
+	
 		DrawAsterisks();
 	}
 };
@@ -165,6 +172,14 @@ public:
 //4. Ќарисовать стены из массива.
 //5. Ќе позвол€ть звездочке наступать на стены.
 
+
+//6/ —делать правильное движение змейки. —ейчас двигаетс€ только голова, тело стоит на месте.
+// «мейка движетс€ так: голова встает на новую позицию, а все следующие элементы двигаютс€ вперед
+// {2,0} {3,0} {3,1} {3,2} {4,2}
+// {1,0} {2,0} {3,0} {3,1} {3,2}
+
+// 7 добавить на поле в случаеное место еду (1 клетка), кога голова ее касаетс€, то написать Hello
+// ≈да генерируетс€ в новом месте
 
 
 char RandomMove() 
