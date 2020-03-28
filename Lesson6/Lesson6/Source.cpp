@@ -1,8 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <iostream>
 #include <conio.h>
 #include <math.h>
-
+#include <stdio.h>
 struct Point
 {
 	int x = 0;
@@ -40,6 +41,7 @@ class Game
 
 	static const int _width = 30;
 	static const int _height = 20;
+	int score = 0;
 	
 	int _wals[_width][_height] = {};
 
@@ -94,7 +96,7 @@ class Game
 		{
 			for (int j = 0; j < _height; j++) 
 			{
-				_wals[i][j] = rand() % 100 > 80;
+				_wals[i][j] = rand() % 100 > 95;
 			}
 		}
 	}
@@ -122,6 +124,57 @@ class Game
 			_asterisk_positions[i].x = 1 + i;
 			_asterisk_positions[i].y = _height / 2;
 		}
+		DrawAsterisks();
+	}
+
+	void DrawBorderScore() 
+	{
+		for (int i = _width + 1; i < _width + 10; i++)
+		{
+			cs.Print(i, 0, kWallSymbol);
+			cs.Print(i, _height, kWallSymbol);
+		}
+
+		for (int j = 0; j < _height + 1; j++)
+		{
+			cs.Print(0, j, kWallSymbol);
+			cs.Print(_width + 10, j, kWallSymbol);
+		}
+		DrawTitleScore();
+	}
+
+	void DrawTitleScore() const
+	{
+		static const int size_name_score = 5;
+		const char name_score[size_name_score] = { 'S','C','O','R','E'};
+		Point p = { _width + 3, 2 };
+		
+		DrawTextChar(name_score, size_name_score, p);
+	}
+
+	void DrawTextChar(const char* text, int size, Point p) const
+	{
+		for (int i = 0; i < size; i++)
+		{
+			cs.Print(p.x + i, p.y, *(text+i));
+		}
+	}
+
+	int UpdateScore()
+	{
+		
+		return  score++;
+	}
+
+	void DrawScore()
+	{
+		static const int size_score = 2;
+
+		char str[2];
+		std::sprintf(str, "%d", UpdateScore());
+
+		Point p = { _width + 3, 3 };
+		DrawTextChar(str, size_score, p);
 	}
 
 public:
@@ -131,6 +184,8 @@ public:
 		AddWals();
 		DrawBorders();
 		DrawWals();
+		DrawBorderScore();
+		DrawScore();
 	}
 
 	void MoveAsterisk(char symbol)
@@ -158,8 +213,8 @@ public:
 		{
 			_asterisk_positions[i] = _asterisk_positions[i - 1];
 		}
-	
 		DrawAsterisks();
+		DrawScore();
 	}
 };
 
@@ -171,8 +226,6 @@ public:
 //3. Заполнить массив стен рандомными стенами в количестве n штук.
 //4. Нарисовать стены из массива.
 //5. Не позволять звездочке наступать на стены.
-
-
 //6/ Сделать правильное движение змейки. Сейчас двигается только голова, тело стоит на месте.
 // Змейка движется так: голова встает на новую позицию, а все следующие элементы двигаются вперед
 // {2,0} {3,0} {3,1} {3,2} {4,2}
@@ -258,7 +311,6 @@ int main()
 		char ch = _getch();
 		game.MoveAsterisk(ch);
 		//game.MoveAsterisk(RandomMove());
-		
 	}
 	
 	//std::cout << ch << std::endl;
