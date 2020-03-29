@@ -36,6 +36,7 @@ public:
 class Game
 {
 	static const char kWallSymbol = '#';
+	static const char kFoodSymbol = '@';
 
 	static const int kSnakeSize = 10;
 
@@ -44,6 +45,8 @@ class Game
 	int score = 0;
 	
 	int _wals[_width][_height] = {};
+	int _foods2[_width][_height] = {};
+
 
 	ConsoleHelper cs;
 	Point _asterisk_positions[kSnakeSize];
@@ -168,20 +171,59 @@ class Game
 
 	void DrawScore()
 	{
-		static const int size_score = 2;
+		static const int size_score = 3;
 
-		char str[2];
+		char str[3] = {0};
 		std::sprintf(str, "%d", UpdateScore());
 
 		Point p = { _width + 3, 3 };
 		DrawTextChar(str, size_score, p);
 	}
 
+	bool IsFood(Point position)
+	{
+		 if (_foods2[position.x][position.y] == 1) 
+		{
+			 _foods2[position.x][position.y] = 0;
+			 return true;
+		}
+		 return false;
+	}
+
+	void GenerateFood()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				_foods2[i][j] = rand() % 100 > 90;
+			}
+		}
+	}
+
+	
+
+	void DrawFood()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				if (_foods2[i][j] == 1)
+				{
+					cs.Print(i,j, kFoodSymbol);
+				}
+			}
+		}
+	}
+
 public:
 	Game()
 	{
 		GenerateSnake();
+		GenerateFood();
 		AddWals();
+		DrawFood();
 		DrawBorders();
 		DrawWals();
 		DrawBorderScore();
@@ -202,10 +244,17 @@ public:
 		case 'd': new_position.x++; break;
 		}
 
+
 		if (IsOutOfField(new_position) || IsWal(new_position))
 		{
 			return;
 		}
+
+		if (IsFood(new_position))
+		{
+			DrawScore();
+		}
+		
 
 		ClearAsterisk();
 		_asterisk_positions[0] = new_position;
@@ -214,7 +263,7 @@ public:
 			_asterisk_positions[i] = _asterisk_positions[i - 1];
 		}
 		DrawAsterisks();
-		DrawScore();
+		
 	}
 };
 
