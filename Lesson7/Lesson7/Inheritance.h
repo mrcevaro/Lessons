@@ -38,11 +38,11 @@ struct Human
 
 	Human() {}
 
-	 Human(std::string name, int age, Gender gender) 
+	Human(std::string name, int age, Gender gender)
 		: _name(name),
-		  _age(age),
-		  _gender(gender)
-	 {}
+		_age(age),
+		_gender(gender)
+	{}
 };
 
 Human GetOlder(Human h1, Human h2)
@@ -61,34 +61,52 @@ Human GetOlder(Human h1, Human h2)
 	}
 }
 
+
+
 struct Student : Human
 {
 	double _mark;
 	int	   _group;
 
-	Student(){}
+	Student() {}
 
 	Student(std::string name, int age, Gender gender, double mark, int group)
-		:  Human(name, age, gender),
-		  _mark(mark),
-		  _group(group)
+		: Human(name, age, gender),
+		_mark(mark),
+		_group(group)
 	{}
-    
+
 };
 
 struct Employee : Human
 {
 	int	   _id;
 	int	   _salary;
-	
-	Employee () {}
+
+	Employee() {}
 
 	Employee(std::string name, int age, Gender gender, int id, int salary)
 		: Human(name, age, gender),
-		  _id(id),
-		  _salary(salary)
+		_id(id),
+		_salary(salary)
 	{}
 };
+
+Employee GetMaxSalary(Employee s1, Employee s2)
+{
+	if (s1._salary > s2._salary)
+	{
+		return s1;
+	}
+	else if (s1._salary < s2._salary)
+	{
+		return s2;
+	}
+	else
+	{
+		return s1;
+	}
+}
 
 struct TaxiDriver : Employee
 {
@@ -98,14 +116,14 @@ struct TaxiDriver : Employee
 
 	TaxiDriver(std::string name, int age, Gender gender, int id, int salary, int taxi_id)
 		: Employee(name, age, gender, id, salary),
-		  _taxi_id(taxi_id)
+		_taxi_id(taxi_id)
 	{}
 };
 
 struct Seller : Employee
 {
 	int	   _market_id;
-	
+
 	Seller() {}
 
 	Seller(std::string name, int age, Gender gender, int id, int salary, int _market_id)
@@ -198,7 +216,7 @@ void F3()
 	//delete students_dyn[4];
 	//students_dyn[4] = students_dyn[count - 1];
 	//count--;
-	
+
 	//2.1.Создать массив из 10 случайных студентов. (сами студенты должны храниться в динамической памяти)
 	Student* students = new Student[10];
 	for (int i = 0; i < 10; i++)
@@ -229,6 +247,7 @@ void F3()
 		taxidrivers[i]._age = std::rand() % (45 - 17 + 1) + 17;
 		taxidrivers[i]._gender = GetRandomGender();
 		taxidrivers[i]._taxi_id = std::rand() % 100;
+		taxidrivers[i]._salary = std::rand() % 100;
 	}
 	std::cout << " TaxiDrivers: " << std::endl;
 
@@ -238,6 +257,7 @@ void F3()
 		std::cout << taxidrivers[i]._age << " ";
 		std::cout << PrintRandomGender(taxidrivers[i]._gender) << " ";
 		std::cout << taxidrivers[i]._taxi_id << " ";
+		std::cout << taxidrivers[i]._salary << " ";
 		std::cout << std::endl;
 	}
 	//2.3.Создать массив из 10 случайных продавцов. (сами продавцы должны храниться в динамической памяти)
@@ -273,16 +293,18 @@ void F3()
 	//pe = ptd;
 //2.4.Создать массив из сотрудников(размера 20).В него записать  сгенерированных таксистов и продавцов.	
 	Employee employeers[20];
-	
-	for (int i = 0; i < 20; i++) 
+
+	for (int i = 0; i < 20; i++)
 	{
 		if (i < 10)
 		{
 			employeers[i] = taxidrivers[i]; // Копируешь
+			employeers[i]._id = taxidrivers[i]._taxi_id;
 		}
 		else
 		{
 			employeers[i] = sellers[i - 10];
+			employeers[i]._id = sellers[i - 10]._market_id;
 		}
 	}
 
@@ -298,16 +320,16 @@ void F3()
 	td = taxidrivers;
 	se = sellers;
 
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i < 10; i++)
 	{
 		hm[i] = st[i];
-		
+
 		hm[i + 10] = td[i];
-		
+
 		hm[i + 20] = se[i];
 		std::cout << "Age students: " << hm[i]._age << " - " << hm[i]._name << std::endl;
-		std::cout << "Age taxidrivers: " << hm[i + 10]._age << " - " << hm[i]._name << std::endl;
-		std::cout << "Age sellers: " << hm[i + 20]._age << " - " << hm[i]._name << std::endl;
+		std::cout << "Age taxidrivers: " << hm[i + 10]._age << " - " << hm[i + 10]._name << std::endl;
+		std::cout << "Age sellers: " << hm[i + 20]._age << " - " << hm[i + 20]._name << std::endl;
 	}
 
 
@@ -319,6 +341,24 @@ void F3()
 	}
 	std::cout << "Oldest " << oldest._age << " - " << oldest._name << std::endl;
 
+	//2.7.Вывести имена и id сотрудников, у которых самая большая зарплата.
+
+	Employee employer_with_big_salary = employeers[0];
+	Employee prev_employer_with_big_salary= employeers[0];
+	for (int i = 1; i < 20; i++)
+	{
+	
+		prev_employer_with_big_salary = employer_with_big_salary;
+		employer_with_big_salary = GetMaxSalary(employer_with_big_salary, employeers[i]);
+	}
+	std::cout << "Big salary " 
+			  << employer_with_big_salary._name 
+		      << " - " << employer_with_big_salary._id  
+	          << employer_with_big_salary._salary<< std::endl;
+	std::cout << "PrevBig salary " 
+		      << prev_employer_with_big_salary._name 
+		      << " - " << prev_employer_with_big_salary._id
+		      << prev_employer_with_big_salary._salary << std::endl;
 
 	delete[] students;
 	delete[] taxidrivers;
