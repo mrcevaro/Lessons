@@ -4,11 +4,19 @@
 #include <conio.h>
 #include <math.h>
 #include <stdio.h>
+#include <string>
+
 struct Point
 {
 	int x = 0;
 	int y = 0;
 };
+
+// задания
+// 1. Убрать _wals, _foods. Сделать только массив fields
+// 2. Убарть логику score в отдельный класс
+// 3. Перевести змейку на вектор. Сделать чтоб голова была в начале массива
+// 4. Сделать кольцеовй массив
 
 class ConsoleHelper
 {
@@ -31,6 +39,21 @@ public:
 		SetPosition( x, y);
 		std::cout.put(ch);
 	}
+	void Print(Point p, const std::string& text) const
+	{
+		for (int i = 0; i < text.size(); i++)
+		{
+			Print(p.x + i, p.y, text[i]);
+		}
+	}
+};
+
+enum FieldObject
+{
+	None = 0,
+	Wall = 1,
+	Food = 2,
+	Snake = 3
 };
 
 class Game
@@ -45,8 +68,9 @@ class Game
 	int score = 0;
 	
 	int _wals[_width][_height] = {};
-	int _foods2[_width][_height] = {};
+	int _foods[_width][_height] = {};
 
+	//FieldObject _field[_width][_height] = {};
 
 	ConsoleHelper cs;
 	Point _asterisk_positions[kSnakeSize];
@@ -148,46 +172,35 @@ class Game
 
 	void DrawTitleScore() const
 	{
-		static const int size_name_score = 5;
-		const char name_score[size_name_score] = { 'S','C','O','R','E'};
 		Point p = { _width + 3, 2 };
-		
-		DrawTextChar(name_score, size_name_score, p);
+		cs.Print(p, "Score");
 	}
 
-	void DrawTextChar(const char* text, int size, Point p) const
+	void UpdateScore()
 	{
-		for (int i = 0; i < size; i++)
-		{
-			cs.Print(p.x + i, p.y, *(text+i));
-		}
+		score++;
 	}
 
-	int UpdateScore()
+	void UpdateAndDrawScore()
 	{
-		
-		return  score++;
-	}
-
-	void DrawScore()
-	{
-		static const int size_score = 3;
-
-		char str[3] = {0};
-		std::sprintf(str, "%d", UpdateScore());
+		UpdateScore();
 
 		Point p = { _width + 3, 3 };
-		DrawTextChar(str, size_score, p);
+		cs.Print(p, std::to_string(score));
 	}
 
 	bool IsFood(Point position)
 	{
-		 if (_foods2[position.x][position.y] == 1) 
+		if (_foods[position.x][position.y] == 1) 
 		{
-			 _foods2[position.x][position.y] = 0;
-			 return true;
+			return true;
 		}
 		 return false;
+	}
+
+	void RemoveFood(Point position)
+	{
+		_foods[position.x][position.y] = 0;
 	}
 
 	void GenerateFood()
@@ -196,7 +209,7 @@ class Game
 		{
 			for (int j = 0; j < _height; j++)
 			{
-				_foods2[i][j] = rand() % 100 > 90;
+				_foods[i][j] = rand() % 100 > 90;
 			}
 		}
 	}
@@ -209,7 +222,7 @@ class Game
 		{
 			for (int j = 0; j < _height; j++)
 			{
-				if (_foods2[i][j] == 1)
+				if (_foods[i][j] == 1)
 				{
 					cs.Print(i,j, kFoodSymbol);
 				}
@@ -227,14 +240,12 @@ public:
 		DrawBorders();
 		DrawWals();
 		DrawBorderScore();
-		DrawScore();
+		UpdateAndDrawScore();
 	}
 
 	void MoveAsterisk(char symbol)
 	{
 		Point new_position = _asterisk_positions[0];
-
-
 
 		switch (symbol)
 		{
@@ -252,10 +263,10 @@ public:
 
 		if (IsFood(new_position))
 		{
-			DrawScore();
+			RemoveFood(new_position);
+			UpdateAndDrawScore();
 		}
 		
-
 		ClearAsterisk();
 		_asterisk_positions[0] = new_position;
 		for (int i = kSnakeSize; i > 0; i--)
@@ -299,9 +310,13 @@ char RandomMove()
 	return ch;
 }
 
+#include "Parallel.h"
 
 int main() 
 {
+	Input();
+	return 1;
+
 	Game game;
 
 	ConsoleHelper cs;
