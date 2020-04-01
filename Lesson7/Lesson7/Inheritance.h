@@ -293,6 +293,8 @@ void F3()
 	//pe = ptd;
 //2.4.Создать массив из сотрудников(размера 20).В него записать  сгенерированных таксистов и продавцов.	
 	Employee employeers[20];
+	Employee* p_em;
+	p_em = employeers;
 
 	for (int i = 0; i < 20; i++)
 	{
@@ -359,6 +361,40 @@ void F3()
 		      << prev_employer_with_big_salary._name 
 		      << " - " << prev_employer_with_big_salary._id
 		      << prev_employer_with_big_salary._salary << std::endl;
+
+	//2.7.1.Вывести имена и id всех сотрудников,  с максимальной зарплатой (сделай это отдельным заданием).
+
+	std::cout << "Employers: " << std::endl;
+
+	for (int i = 0; i < 20; i++)
+	{
+		std::cout << (p_em + i)->_name << " "
+			      << "ID:" << (p_em + i)->_id << " "
+				  << "$:"  << (p_em + i)->_salary << std::endl;
+	}
+
+	Employee* max_salary = employeers;
+
+	for (int i = 1; i < 20; i++)
+	{
+		if ((p_em + i)->_salary > max_salary->_salary)
+		{
+			max_salary = (p_em + i);
+		}
+	}
+
+	std::cout << "Employers with max salary " << std::endl;
+	for (int i = 0; i < 20; i++)
+	{
+		if ((p_em + i)->_salary == max_salary->_salary)
+		{
+				std::cout << (p_em + i)->_name << " "
+				<< "ID:" << (p_em + i)->_id << " "
+				<< "$:"  << (p_em + i)->_salary << std::endl;
+		}
+	}
+
+	//2.8.Вывести средний возвраст студентов мальчиков.
 
 	delete[] students;
 	delete[] taxidrivers;
