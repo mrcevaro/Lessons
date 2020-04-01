@@ -15,6 +15,7 @@ struct Point
 // задания
 // 1. Убрать _wals, _foods. Сделать только массив fields
 // 2. Убарть логику score в отдельный класс
+
 // 3. Перевести змейку на вектор. Сделать чтоб голова была в начале массива
 // 4. Сделать кольцеовй массив
 
@@ -36,7 +37,7 @@ public:
 	}
 	void Print(short x, short y, char ch) const
 	{
-		SetPosition( x, y);
+		SetPosition(x, y);
 		std::cout.put(ch);
 	}
 	void Print(Point p, const std::string& text) const
@@ -48,7 +49,7 @@ public:
 	}
 };
 
-enum FieldObject
+enum class FieldObject
 {
 	None = 0,
 	Wall = 1,
@@ -56,105 +57,33 @@ enum FieldObject
 	Snake = 3
 };
 
-class Game
+class Score
 {
-	static const char kWallSymbol = '#';
-	static const char kFoodSymbol = '@';
+public:
 
-	static const int kSnakeSize = 10;
-
-	static const int _width = 30;
-	static const int _height = 20;
-	int score = 0;
-	
-	int _wals[_width][_height] = {};
-	int _foods[_width][_height] = {};
-
-	//FieldObject _field[_width][_height] = {};
-
-	ConsoleHelper cs;
-	Point _asterisk_positions[kSnakeSize];
-
-	void ClearAsterisk()
+	Score(const int width, const int height)
+		: _width(width),
+		_height(height)
 	{
-		for (int i = 0; i < kSnakeSize; i++)
-		{
-			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, ' ');
-		}
+		DrawBorderScore();
+		DrawTitleScore();
+		DrawScore();
 	}
 
-	void DrawAsterisks()
+	void UpdateScore()
 	{
-		for (int i = 0; i < kSnakeSize; i++)
-		{
-			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, '*');
-		}
-		
+		score++;
 	}
 
-	bool IsOutOfField(Point position) const
+	void DrawScore()
 	{
-		return (position.x >= _width || position.y >= _height || position.x <= 0 || position.y <= 0);
+		Point p = { _width + 3, 3 };
+		cs.Print(p, std::to_string(score));
 	}
 
-	bool IsWal(Point position)
-	{
-		return (_wals[position.x][position.y] == 1);
-	}
+private:
 
-	void DrawBorders() const
-	{
-		for (int i = 0; i < _width + 1; i++)
-		{
-			cs.Print(i, 0, kWallSymbol);
-			cs.Print(i, _height, kWallSymbol);
-		}
-
-		for (int j = 0; j < _height; j++)
-		{
-			cs.Print(0, j, kWallSymbol);
-			cs.Print(_width, j, kWallSymbol);
-		}
-	}
-
-	void AddWals() 
-	{
-		for (int i = 0; i < _width; i++) 
-		{
-			for (int j = 0; j < _height; j++) 
-			{
-				_wals[i][j] = rand() % 100 > 95;
-			}
-		}
-	}
-
-	void DrawWals() const
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				if (_wals[i][j] == 1)
-				{
-					cs.Print(i, j, kWallSymbol);
-				}
-			}
-		}
-	}
-
-	void GenerateSnake()
-	{
-		// 1, height / 2
-		// 2, height / 2
-		for (int i = 0; i < kSnakeSize; i++)
-		{
-			_asterisk_positions[i].x = 1 + i;
-			_asterisk_positions[i].y = _height / 2;
-		}
-		DrawAsterisks();
-	}
-
-	void DrawBorderScore() 
+	void DrawBorderScore() const
 	{
 		for (int i = _width + 1; i < _width + 10; i++)
 		{
@@ -167,7 +96,6 @@ class Game
 			cs.Print(0, j, kWallSymbol);
 			cs.Print(_width + 10, j, kWallSymbol);
 		}
-		DrawTitleScore();
 	}
 
 	void DrawTitleScore() const
@@ -176,60 +104,16 @@ class Game
 		cs.Print(p, "Score");
 	}
 
-	void UpdateScore()
-	{
-		score++;
-	}
+	const int _width = 0;
+	const int _height = 0;
+	static const char kWallSymbol = '#';
+	ConsoleHelper cs;
 
-	void UpdateAndDrawScore()
-	{
-		UpdateScore();
+	int score = 0;
+};
 
-		Point p = { _width + 3, 3 };
-		cs.Print(p, std::to_string(score));
-	}
-
-	bool IsFood(Point position)
-	{
-		if (_foods[position.x][position.y] == 1) 
-		{
-			return true;
-		}
-		 return false;
-	}
-
-	void RemoveFood(Point position)
-	{
-		_foods[position.x][position.y] = 0;
-	}
-
-	void GenerateFood()
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				_foods[i][j] = rand() % 100 > 90;
-			}
-		}
-	}
-
-	
-
-	void DrawFood()
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				if (_foods[i][j] == 1)
-				{
-					cs.Print(i,j, kFoodSymbol);
-				}
-			}
-		}
-	}
-
+class Game
+{
 public:
 	Game()
 	{
@@ -239,8 +123,7 @@ public:
 		DrawFood();
 		DrawBorders();
 		DrawWals();
-		DrawBorderScore();
-		UpdateAndDrawScore();
+		_score.DrawScore();
 	}
 
 	void MoveAsterisk(char symbol)
@@ -264,9 +147,10 @@ public:
 		if (IsFood(new_position))
 		{
 			RemoveFood(new_position);
-			UpdateAndDrawScore();
+			_score.UpdateScore();
+			_score.DrawScore();
 		}
-		
+
 		ClearAsterisk();
 		_asterisk_positions[0] = new_position;
 		for (int i = kSnakeSize; i > 0; i--)
@@ -274,8 +158,176 @@ public:
 			_asterisk_positions[i] = _asterisk_positions[i - 1];
 		}
 		DrawAsterisks();
-		
+
 	}
+
+private:
+
+	void ClearAsterisk()
+	{
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, ' ');
+		}
+	}
+
+	void DrawAsterisks()
+	{
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, '*');
+		}
+
+	}
+
+	bool IsOutOfField(Point position) const
+	{
+		return (position.x >= _width || position.y >= _height || position.x <= 0 || position.y <= 0);
+	}
+
+	bool IsWal(Point position)
+	{
+		return (_field[position.x][position.y] == FieldObject::Wall);
+	}
+
+	void DrawBorders() const
+	{
+		for (int i = 0; i < _width + 1; i++)
+		{
+			cs.Print(i, 0, kWallSymbol);
+			cs.Print(i, _height, kWallSymbol);
+		}
+
+		for (int j = 0; j < _height; j++)
+		{
+			cs.Print(0, j, kWallSymbol);
+			cs.Print(_width, j, kWallSymbol);
+		}
+	}
+
+	void AddWals()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				//_field[i][j] = rand() % 100 > 95;
+			}
+		}
+	}
+
+	void DrawWals() const
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				if (_field[i][j] == FieldObject::Wall)
+				{
+					cs.Print(i, j, kWallSymbol);
+				}
+			}
+		}
+	}
+
+	void GenerateSnake()
+	{
+		// 1, height / 2
+		// 2, height / 2
+		for (int i = 0; i < kSnakeSize; i++)
+		{
+			_asterisk_positions[i].x = 1 + i;
+			_asterisk_positions[i].y = _height / 2;
+		}
+		DrawAsterisks();
+	}
+
+
+
+
+
+	bool IsFood(Point position)
+	{
+		if (_field[position.x][position.y] == FieldObject::Food)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	void RemoveFood(Point position)
+	{
+		_field[position.x][position.y] = FieldObject::None;
+	}
+
+	void GenerateFood()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				//_field[i][j] = rand() % 100 > 90;
+			}
+		}
+	}
+
+	void GenerateElementsGame()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				switch (rand() % 3)
+				{
+				default:
+					break;
+				case 0:
+					_field[i][j] = FieldObject::None;
+					break;
+				case 1:
+					_field[i][j] = FieldObject::Wall;
+					break;
+				case 2:
+					_field[i][j] = FieldObject::Food;
+					break;
+				}
+			}
+		}
+	}
+
+
+
+	void DrawFood()
+	{
+		for (int i = 0; i < _width; i++)
+		{
+			for (int j = 0; j < _height; j++)
+			{
+				if (_field[i][j] == FieldObject::Food)
+				{
+					cs.Print(i, j, kFoodSymbol);
+				}
+			}
+		}
+	}
+
+	static const char kWallSymbol = '#';
+	static const char kFoodSymbol = '@';
+
+	static const int kSnakeSize = 10;
+
+	static const int _width = 30;
+	static const int _height = 20;
+
+
+	//int _wals[_width][_height] = {};
+	//int _foods[_width][_height] = {};
+
+	FieldObject _field[_width][_height] = {};
+
+	ConsoleHelper cs;
+	Score _score{ _width, _height };
+	Point _asterisk_positions[kSnakeSize];
 };
 
 
@@ -295,7 +347,7 @@ public:
 // Еда генерируется в новом месте
 
 
-char RandomMove() 
+char RandomMove()
 {
 	char ch;
 	switch (std::rand() % 4)
@@ -312,15 +364,15 @@ char RandomMove()
 
 #include "Parallel.h"
 
-int main() 
+int main()
 {
-	Input();
-	return 1;
+	//Input();
+	//return 1;
 
 	Game game;
 
 	ConsoleHelper cs;
-	   	   
+
 	//int xx[10][10] = {0};
 	//
 	//xx[3][4] = 1;
@@ -354,8 +406,8 @@ int main()
 
 		cs.Print(std::rand() % 50, std::rand() % 50, ch);
 	}*/
-	
-	
+
+
 
 	while (true)
 	{
@@ -369,14 +421,14 @@ int main()
 		case 's': y++; break;
 		case 'd': x++; break;
 		}
-		
+
 		game.
 		cs.Print(x, y, '*');*/
 		char ch = _getch();
 		game.MoveAsterisk(ch);
 		//game.MoveAsterisk(RandomMove());
 	}
-	
+
 	//std::cout << ch << std::endl;
 
 	std::system("pause");
