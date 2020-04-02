@@ -16,8 +16,8 @@ struct Point
 // задания
 // 1. Убрать _wals, _foods. Сделать только массив fields
 // 2. Убарть логику score в отдельный класс
-
 // 3. Перевести змейку на вектор. Сделать чтоб голова была в начале массива
+
 // 4. Сделать кольцеовй массив
 
 class ConsoleHelper
@@ -128,7 +128,7 @@ public:
 
 	void MoveAsterisk(char symbol)
 	{
-		Point new_position = _asterisk_positions[0];
+		Point new_position = _snake[0];
 
 		switch (symbol)
 		{
@@ -149,13 +149,14 @@ public:
 			RemoveFood(new_position);
 			_score.UpdateScore();
 			_score.DrawScore();
+			_snake.push_back(_snake[_snake.size() - 1]);
 		}
 
 		DeleteSnake();
-		_asterisk_positions[0] = new_position;
-		for (int i = kSnakeSize; i > 0; i--)
+		_snake[0] = new_position;
+		for (int i = _snake.size() - 1; i > 0; i--)
 		{
-			_asterisk_positions[i] = _asterisk_positions[i - 1];
+			_snake[i] = _snake[i - 1];
 		}
 		DrawSnake();
 	}
@@ -164,17 +165,17 @@ private:
 
 	void DeleteSnake()
 	{
-		for (int i = 0; i < kSnakeSize; i++)
+		for (int i = 0; i < _snake.size(); i++)
 		{
-			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, ' ');
+			cs.Print(_snake[i].x, _snake[i].y, ' ');
 		}
 	}
 
 	void DrawSnake()
 	{
-		for (int i = 0; i < kSnakeSize; i++)
+		for (int i = 0; i < _snake.size(); i++)
 		{
-			cs.Print(_asterisk_positions[i].x, _asterisk_positions[i].y, '*');
+			cs.Print(_snake[i].x, _snake[i].y, '*');
 		}
 
 	}
@@ -206,9 +207,9 @@ private:
 
 	void DrawElementsGame() const
 	{
-		for (int i = 0; i < _width; i++)
+		for (int i = 2; i < _width; i++)
 		{
-			for (int j = 0; j < _height; j++)
+			for (int j = 2; j < _height; j++)
 			{
 				switch (_field[i][j])
 				{
@@ -228,7 +229,7 @@ private:
 
 	void GenerateSnake()
 	{
-		for (int i = 0; i < kSnakeSize; i++)
+		for (int i = 0; i < 3 ; i++)
 		{
 			_snake.push_back({ 1 + i,_height / 2 });
 		}
@@ -251,9 +252,9 @@ private:
 	void GenerateElementsGame()
 	{
 		int count = 0;
-		for (int i = 0; i < _width; i++)
+		for (int i = 2; i < _width; i++)
 		{
-			for (int j = 0; j < _height; j++)
+			for (int j = 2; j < _height; j++)
 			{
 				_field[i][j] = rand() % 100 > 90 ? FieldObject::Wall : FieldObject::None;
 
@@ -276,8 +277,6 @@ private:
 	static const char kWallSymbol = '#';
 	static const char kFoodSymbol = '@';
 
-	static const int kSnakeSize = 10;
-
 	static const int _width = 30;
 	static const int _height = 20;
 
@@ -287,7 +286,6 @@ private:
 
 	ConsoleHelper cs;
 	Score _score{ _width, _height };
-	Point _asterisk_positions[kSnakeSize];
 };
 
 
