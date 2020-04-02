@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
 
 struct Point
 {
@@ -117,12 +118,11 @@ class Game
 public:
 	Game()
 	{
-		GenerateSnake();
-		GenerateFood();
-		AddWals();
-		DrawFood();
 		DrawBorders();
-		DrawWals();
+		GenerateElementsGame();
+		DrawElementsGame();
+		GenerateSnake();
+		DrawSnake();
 		_score.DrawScore();
 	}
 
@@ -151,19 +151,18 @@ public:
 			_score.DrawScore();
 		}
 
-		ClearAsterisk();
+		DeleteSnake();
 		_asterisk_positions[0] = new_position;
 		for (int i = kSnakeSize; i > 0; i--)
 		{
 			_asterisk_positions[i] = _asterisk_positions[i - 1];
 		}
-		DrawAsterisks();
-
+		DrawSnake();
 	}
 
 private:
 
-	void ClearAsterisk()
+	void DeleteSnake()
 	{
 		for (int i = 0; i < kSnakeSize; i++)
 		{
@@ -171,7 +170,7 @@ private:
 		}
 	}
 
-	void DrawAsterisks()
+	void DrawSnake()
 	{
 		for (int i = 0; i < kSnakeSize; i++)
 		{
@@ -205,26 +204,23 @@ private:
 		}
 	}
 
-	void AddWals()
+	void DrawElementsGame() const
 	{
 		for (int i = 0; i < _width; i++)
 		{
 			for (int j = 0; j < _height; j++)
 			{
-				//_field[i][j] = rand() % 100 > 95;
-			}
-		}
-	}
-
-	void DrawWals() const
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				if (_field[i][j] == FieldObject::Wall)
+				switch (_field[i][j])
 				{
+				case FieldObject::None:
+					cs.Print(i, j, ' ');
+					break;
+				case FieldObject::Wall:
 					cs.Print(i, j, kWallSymbol);
+					break;
+				case FieldObject::Food:
+					cs.Print(i, j, kFoodSymbol);
+					break;
 				}
 			}
 		}
@@ -232,19 +228,11 @@ private:
 
 	void GenerateSnake()
 	{
-		// 1, height / 2
-		// 2, height / 2
 		for (int i = 0; i < kSnakeSize; i++)
 		{
-			_asterisk_positions[i].x = 1 + i;
-			_asterisk_positions[i].y = _height / 2;
+			_snake.push_back({ 1 + i,_height / 2 });
 		}
-		DrawAsterisks();
 	}
-
-
-
-
 
 	bool IsFood(Point position)
 	{
@@ -260,52 +248,26 @@ private:
 		_field[position.x][position.y] = FieldObject::None;
 	}
 
-	void GenerateFood()
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				//_field[i][j] = rand() % 100 > 90;
-			}
-		}
-	}
-
 	void GenerateElementsGame()
 	{
+		int count = 0;
 		for (int i = 0; i < _width; i++)
 		{
 			for (int j = 0; j < _height; j++)
 			{
-				switch (rand() % 3)
+				_field[i][j] = rand() % 100 > 90 ? FieldObject::Wall : FieldObject::None;
+
+				if (_field[i][j] == FieldObject::None)
 				{
-				default:
-					break;
-				case 0:
-					_field[i][j] = FieldObject::None;
-					break;
-				case 1:
-					_field[i][j] = FieldObject::Wall;
-					break;
-				case 2:
-					_field[i][j] = FieldObject::Food;
-					break;
-				}
-			}
-		}
-	}
-
-
-
-	void DrawFood()
-	{
-		for (int i = 0; i < _width; i++)
-		{
-			for (int j = 0; j < _height; j++)
-			{
-				if (_field[i][j] == FieldObject::Food)
-				{
-					cs.Print(i, j, kFoodSymbol);
+					if (count == 10)
+					{
+						_field[i][j] = FieldObject::Food;
+						count = 0;
+					}
+					else
+					{
+						count++;
+					}
 				}
 			}
 		}
@@ -319,9 +281,7 @@ private:
 	static const int _width = 30;
 	static const int _height = 20;
 
-
-	//int _wals[_width][_height] = {};
-	//int _foods[_width][_height] = {};
+	std::vector<Point> _snake;
 
 	FieldObject _field[_width][_height] = {};
 
