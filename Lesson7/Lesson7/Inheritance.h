@@ -368,9 +368,9 @@ void F3()
 
 	for (int i = 0; i < 20; i++)
 	{
-		std::cout << (p_em + i)->_name << " "
-			      << "ID:" << (p_em + i)->_id << " "
-				  << "$:"  << (p_em + i)->_salary << std::endl;
+		std::cout << p_em[i]._name << " "
+			      << "ID:" << p_em[i]._id << " "
+				  << "$:"  << p_em[i]._salary << std::endl;
 	}
 
 	Employee* max_salary = employeers;

@@ -134,6 +134,7 @@ private:
 	int score = 0;
 };
 
+template <int kWidth, int kHeight>
 class Game
 {
 public:
@@ -356,8 +357,8 @@ private:
 
 	
 
-	static const int _width = 30;
-	static const int _height = 20;
+	static const int _width = kWidth;
+	static const int _height = kHeight;
 
 	std::vector<Point> _snake;
 
@@ -410,7 +411,7 @@ int main()
 	//Input();
 	//return 1;
 
-	Game game;
+	Game<10,20> game;
 
 	ConsoleHelper cs;
 
