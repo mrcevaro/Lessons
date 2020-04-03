@@ -263,7 +263,32 @@ int Factorial(int value)
 
 int main()
 {
-	TestContainersSquared();
+	const auto random_generator = []()
+	{
+		return std::rand() % 100000;
+	};
+
+	const auto ArrayBestGenerator = [cur_value = 0 ]() mutable
+	{
+		return cur_value++;
+	};
+
+	const auto ArrayWorstGenerator = [cur_value = 0]() mutable
+	{
+		return cur_value--;
+	};
+
+	std::cout << "==================" << std::endl;
+	std::cout << "Random generator: " << std::endl;
+	TestContainersSquared(random_generator);
+	std::cout << "==================" << std::endl;
+	std::cout << "ArrayBest generator: " << std::endl;
+	TestContainersSquared(ArrayBestGenerator);
+	std::cout << "==================" << std::endl;
+	std::cout << "ArrayWorst generator: " << std::endl;
+	TestContainersSquared(ArrayWorstGenerator);
+
+
 	std::system("pause");
 	return 0;
 	DynamicArray dm;

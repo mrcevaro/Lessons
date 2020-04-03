@@ -18,7 +18,12 @@ struct Point
 // 2. Убарть логику score в отдельный класс
 // 3. Перевести змейку на вектор. Сделать чтоб голова была в начале массива
 
+
+// 1. Разнести логику по файликам
+// 2. В классе Score не рисовать стену, ит не принимать размеры поля. А принимать только точку куда писать.
+// 3. Заюзать енам Snake в поле
 // 4. Сделать кольцеовй массив
+
 
 class ConsoleHelper
 {
@@ -52,11 +57,15 @@ public:
 
 enum class FieldObject
 {
-	None = 0,
-	Wall = 1,
-	Food = 2,
+	None  = 0,
+	Wall  = 1,
+	Food  = 2,
 	Snake = 3
 };
+static const char kWallSymbol = (char)219;
+static const char kFoodSymbol = '@';
+
+
 
 class Score
 {
@@ -107,7 +116,6 @@ private:
 
 	const int _width = 0;
 	const int _height = 0;
-	static const char kWallSymbol = '#';
 	ConsoleHelper cs;
 
 	int score = 0;
@@ -256,6 +264,25 @@ private:
 		{
 			for (int j = 2; j < _height; j++)
 			{
+				//static const auto kWallChance  = 30;
+				//static const auto kFoodChance  = 10;
+				//static const auto kEmptyChance = 60;
+				//
+				//const auto rand_number = rand() % 100;
+				//if (rand_number < kWallChance)
+				//{
+				//	_field[i][j] = FieldObject::Wall;
+				//}
+				//else if (rand_number - kWallChance < kFoodChance)
+				//{
+				//	_field[i][j] = FieldObject::Food
+				//}
+				//else
+				//{
+				//	_field[i][j] = FieldObject::None;
+				//}
+
+
 				_field[i][j] = rand() % 100 > 90 ? FieldObject::Wall : FieldObject::None;
 
 				if (_field[i][j] == FieldObject::None)
@@ -274,8 +301,7 @@ private:
 		}
 	}
 
-	static const char kWallSymbol = '#';
-	static const char kFoodSymbol = '@';
+	
 
 	static const int _width = 30;
 	static const int _height = 20;

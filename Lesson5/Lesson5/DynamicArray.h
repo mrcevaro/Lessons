@@ -165,16 +165,25 @@ public:
 	}
 
 
+	std::vector<int> GetSortedElems()
+	{
+		std::vector<int> result;
+		result.reserve(_size);
+
+		for (int i = 0; i < _size; i++)
+		{
+			result.push_back(_array[i]);
+		}
+		return result;
+	}
+
 
 	//2.4.Метод PushBack(int value).Добавляет value в конец массива и увеличивает размер массива на 1.
 //Например был массив 1 2 3 4. Вызвали PushBack(13).Массив стал 1 2 3 4 13.
 	void PushBack(int value) 
 	{
-		if (_size < _capacity) 
-		{
-			_size += 1;
-		}
-		else
+		_size += 1;
+		if (_size >= _capacity) 
 		{
 			SetNewCapacity();
 		}
