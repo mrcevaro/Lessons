@@ -67,7 +67,6 @@ enum class KeyCode
 	right
 };
 
-
 class Score
 {
 public:
@@ -175,7 +174,7 @@ public:
 
 	void MoveAsterisk()//void MoveAsterisk(char symbol)
 	{
-		
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 			Point new_position = GetNewPosition(_snake[0]);
 			// new_position = _snake[0];
 
@@ -211,6 +210,7 @@ public:
 	}
 
 private:
+	Game(const Game&) = delete;
 
 	void DeleteSnake()
 	{
@@ -305,11 +305,11 @@ private:
 		{
 			for (int j = 2; j < _height; j++)
 			{
-				_field[i][j] = rand() % 100 > 90 ? FieldObject::Wall : FieldObject::None;
+				_field[i][j] = rand() % 100 > 95 ? FieldObject::Wall : FieldObject::None;
 
 				if (_field[i][j] == FieldObject::None)
 				{
-					if (count == 10)
+					if (count == 30)
 					{
 						_field[i][j] = FieldObject::Food;
 						count = 0;
@@ -336,7 +336,7 @@ private:
 	ConsoleHelper cs;
 	Score _score{ _width, _height };
 
-	KeyCode _kd;
+	KeyCode _kd = KeyCode::down;
 	Point prev_position;
 };
 
@@ -418,12 +418,8 @@ int main()
 		cs.Print(std::rand() % 50, std::rand() % 50, ch);
 	}*/
 
-	
-	
 
-
-
-	std::thread keyboard_thread(game.GetKey());
+	std::thread keyboard_thread(&Game::GetKey, &game);
 	while (true)
 	{
 		/*char ch = _getch();
