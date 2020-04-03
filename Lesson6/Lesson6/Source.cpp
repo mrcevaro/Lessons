@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <thread>
 
 struct Point
 {
@@ -65,7 +66,13 @@ enum class FieldObject
 static const char kWallSymbol = (char)219;
 static const char kFoodSymbol = '@';
 
-
+enum class KeyCode
+{
+	up,
+	down,
+	left,
+	right
+};
 
 class Score
 {
@@ -134,42 +141,82 @@ public:
 		_score.DrawScore();
 	}
 
-	void MoveAsterisk(char symbol)
+	Point GetNewPosition(Point position)
 	{
-		Point new_position = _snake[0];
-
-		switch (symbol)
+		switch (_kd)
 		{
-		case 'w': new_position.y--; break;
-		case 'a': new_position.x--; break;
-		case 's': new_position.y++; break;
-		case 'd': new_position.x++; break;
+		case KeyCode::down: position.y--; break;
+		case KeyCode::left: position.x--; break;
+		case KeyCode::up:   position.y++; break;
+		case KeyCode::right: position.x++; break;
 		}
-
-
-		if (IsOutOfField(new_position) || IsWal(new_position))
+		if (prev_position.x != position.x || prev_position.y != position.y)
 		{
-			return;
+			prev_position = position;
+			return position;
 		}
-
-		if (IsFood(new_position))
+		else
 		{
-			RemoveFood(new_position);
-			_score.UpdateScore();
-			_score.DrawScore();
-			_snake.push_back(_snake[_snake.size() - 1]);
+			return prev_position;
 		}
+	}
 
-		DeleteSnake();
-		_snake[0] = new_position;
-		for (int i = _snake.size() - 1; i > 0; i--)
+
+	void GetKey()
+	{
+		while (true)
 		{
-			_snake[i] = _snake[i - 1];
+			char ch = _getch();
+			switch (ch)
+			{
+			case 'w': _kd = KeyCode::down; break;
+			case 'a': _kd = KeyCode::left; break;
+			case 's': _kd = KeyCode::up; break;
+			case 'd': _kd = KeyCode::right; break;
+			}
 		}
-		DrawSnake();
+	}
+
+
+	void MoveAsterisk()//void MoveAsterisk(char symbol)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			Point new_position = GetNewPosition(_snake[0]);
+			// new_position = _snake[0];
+
+		/*	switch (symbol)
+			{
+			case 'w': new_position.y--; break;
+			case 'a': new_position.x--; break;
+			case 's': new_position.y++; break;
+			case 'd': new_position.x++; break;
+			}
+	*/
+
+			if (IsOutOfField(new_position) || IsWal(new_position))
+			{
+				return;
+			}
+
+			if (IsFood(new_position))
+			{
+				RemoveFood(new_position);
+				_score.UpdateScore();
+				_score.DrawScore();
+				_snake.push_back(_snake[_snake.size() - 1]);
+			}
+
+			DeleteSnake();
+			_snake[0] = new_position;
+			for (int i = _snake.size() - 1; i > 0; i--)
+			{
+				_snake[i] = _snake[i - 1];
+			}
+			DrawSnake();
 	}
 
 private:
+	Game(const Game&) = delete;
 
 	void DeleteSnake()
 	{
@@ -287,7 +334,7 @@ private:
 
 				if (_field[i][j] == FieldObject::None)
 				{
-					if (count == 10)
+					if (count == 30)
 					{
 						_field[i][j] = FieldObject::Food;
 						count = 0;
@@ -312,7 +359,11 @@ private:
 
 	ConsoleHelper cs;
 	Score _score{ _width, _height };
+
+	KeyCode _kd = KeyCode::down;
+	Point prev_position;
 };
+
 
 
 
@@ -392,7 +443,7 @@ int main()
 	}*/
 
 
-
+	std::thread keyboard_thread(&Game::GetKey, &game);
 	while (true)
 	{
 		/*char ch = _getch();
@@ -408,11 +459,14 @@ int main()
 
 		game.
 		cs.Print(x, y, '*');*/
-		char ch = _getch();
-		game.MoveAsterisk(ch);
+		//char ch = _getch();
+		
+		
+		
 		//game.MoveAsterisk(RandomMove());
+		game.MoveAsterisk();
 	}
-
+	keyboard_thread.join();
 	//std::cout << ch << std::endl;
 
 	std::system("pause");
