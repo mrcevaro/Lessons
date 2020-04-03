@@ -32,5 +32,8 @@
     <ClInclude Include="Templates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Questions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -70,6 +70,4 @@ void TestVector()
 	{
 		std::cout << p.x << p.y << std::endl;
 	}
-
-	
 }
