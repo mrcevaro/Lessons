@@ -126,7 +126,11 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleHelper.h" />
+    <ClInclude Include="GamePlay.h" />
+    <ClInclude Include="ObjectsGamePlay.h" />
     <ClInclude Include="Parallel.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="testVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
