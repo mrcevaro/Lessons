@@ -1,13 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <conio.h>
-#include <math.h>
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <thread>
-#include "ObjectsGamePlay.h"
-#include "ConsoleHelper.h" 
-#include "Score.h"
+
 #include "GamePlay.h"
 
 
@@ -31,9 +22,9 @@
 
 
 // 1. Разнести логику по файликам
-
 // 2. В классе Score не рисовать стену, ит не принимать размеры поля. А принимать только точку куда писать.
 // 3. Заюзать енам Snake в поле
+
 // 4. Сделать кольцеовй массив
 // 5. Добавить врагов 
 // 6. Добавить к змейке и врагам скорость
@@ -61,14 +52,12 @@ int main()
 {
 	//GamePlay<10,20> game;
 	GamePlay game;
-	ConsoleHelper cs;
-
 	std::thread keyboard_thread(&GamePlay::GetKey, &game);
 	//std::thread sound_thread(&GamePlay::PlaySoundWithBeep, &game);
 
 	while (true)
 	{
-		game.MoveAsterisk();
+		game.Action();
 	}
 	keyboard_thread.join();
 	//sound_thread.join();

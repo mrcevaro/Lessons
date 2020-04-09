@@ -1,4 +1,14 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#include <conio.h>
+#include <math.h>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <thread>
+#include "ObjectsGamePlay.h"
+#include "ConsoleHelper.h" 
+#include "Score.h"
 #include <mmsystem.h>
 //template <int kWidth, int kHeight>
 class GamePlay
@@ -75,7 +85,7 @@ public:
 		}
 	}
 
-	void MoveAsterisk()//void MoveAsterisk(char symbol)
+	void Action()//void Action(char symbol)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		Point new_position = GetNewPosition(_snake[0]);
@@ -90,7 +100,7 @@ public:
 		}
 */
 
-		if (IsOutOfField(new_position) || IsWal(new_position))
+		if (IsOutOfField(new_position) || IsWal(new_position)|| IsSnake(new_position))
 		{
 			return;
 		}
@@ -108,7 +118,9 @@ public:
 		for (int i = _snake.size() - 1; i > 0; i--)
 		{
 			_snake[i] = _snake[i - 1];
+			_field[_snake[i].x][_snake[i].y] = FieldObject::Snake;
 		}
+		
 		DrawSnake();
 	}
 
@@ -120,6 +132,7 @@ private:
 		for (int i = 0; i < _snake.size(); i++)
 		{
 			cs.Print(_snake[i].x, _snake[i].y, ' ');
+			_field[_snake[i].x][_snake[i].y] = FieldObject::None;
 		}
 	}
 
@@ -147,6 +160,11 @@ private:
 	bool IsWal(Point position)
 	{
 		return (_field[position.x][position.y] == FieldObject::Wall);
+	}
+
+	bool IsSnake(Point position) const
+	{
+		return  _field[position.x][position.y] == FieldObject::Snake;
 	}
 
 	void DrawBorders() const
@@ -275,7 +293,9 @@ private:
 	FieldObject _field[_width][_height] = {};
 
 	ConsoleHelper cs;
-	Score _score{ _width, _height };
+	Point h{55, 0 };
+	Score _score{ h };
+	
 
 	KeyCode _kd = KeyCode::down;
 	Point prev_position;
