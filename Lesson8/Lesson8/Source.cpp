@@ -1,6 +1,8 @@
-#include "SmartPointers.h"
+//#include "SmartPointers.h"
+#include "Sorts.h"
 
 int main()
 {
-	SmartPointers::f2();
+	//SmartPointers::f2();
+	Sorts::f();
 }
