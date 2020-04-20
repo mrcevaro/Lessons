@@ -22,8 +22,9 @@ public:
 		DrawElementsGame();
 		GenerateSnake();
 		DrawSnake();
-		GenerateEnemie();
-		DrawEnemie();
+		DrawEnemies();
+		//GenerateEnemie();
+		//DrawEnemie();
 		_score.DrawScore();
 	}
 
@@ -31,7 +32,7 @@ public:
 	{
 		for (int i = 0; i < 256; i++)
 		{
-			cs.Print(0,i, (char)i);
+			cs.Print(0, i, (char)i);
 		}
 	}
 
@@ -55,6 +56,20 @@ public:
 		}
 	}
 
+	Point GetNewPositionEnemie(Point position)
+	{
+		switch (std::rand() % 4)
+		{
+		case 0: position.y--; break;
+		case 1: position.x--; break;
+		case 2: position.y++; break;
+		case 3: position.x++; break;
+		default:
+			break;
+		}
+		return position;
+	}
+
 
 	void GetKey()
 	{
@@ -71,7 +86,7 @@ public:
 		}
 	}
 
-	void PlaySoundWithBeep() 
+	void PlaySoundWithBeep()
 	{
 		while (true)
 		{
@@ -85,22 +100,9 @@ public:
 		}
 	}
 
-	void Action()//void Action(char symbol)
+	void MovementSnake(Point new_position)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		Point new_position = GetNewPosition(_snake[0]);
-		// new_position = _snake[0];
-
-	/*	switch (symbol)
-		{
-		case 'w': new_position.y--; break;
-		case 'a': new_position.x--; break;
-		case 's': new_position.y++; break;
-		case 'd': new_position.x++; break;
-		}
-*/
-
-		if (IsOutOfField(new_position) || IsWal(new_position)|| IsSnake(new_position))
+		if (IsOutOfField(new_position) || IsWal(new_position) || IsSnake(new_position))
 		{
 			return;
 		}
@@ -113,27 +115,68 @@ public:
 			_snake.push_back(_snake[_snake.size() - 1]);
 		}
 
-		DeleteSnake();
+		RemovePreviousPositionSnake();
 		_snake[0] = new_position;
 		for (int i = _snake.size() - 1; i > 0; i--)
 		{
 			_snake[i] = _snake[i - 1];
 			_field[_snake[i].x][_snake[i].y] = FieldObject::Snake;
 		}
-		
+
 		DrawSnake();
+	}
+
+	void MovementEnemie(int index_enemie, Point new_position)
+	{
+		if (IsOutOfField(new_position) || IsWal(new_position) || IsFood(new_position))
+		{
+			return;
+		}
+
+		if (IsSnake(new_position)) 
+		{
+			if (_snake.size() > _min_size_snake)
+			{
+				_snake.pop_back();
+			}
+			else
+			{
+				exit(0);
+			}
+		}
+
+		RemovePreviousPositionEnemie(index_enemie);
+		_enemies[index_enemie] = new_position;
+		DrawEnemies();
+	}
+
+	void Action()
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		MovementSnake(GetNewPosition(_snake[0]));
+
+		for (int i = 0; i < _enemies.size(); i++)
+		{
+			MovementEnemie(i, GetNewPositionEnemie(_enemies[i]));
+		}
 	}
 
 private:
 	GamePlay(const GamePlay&) = delete;
 
-	void DeleteSnake()
+	void RemovePreviousPositionSnake()
 	{
 		for (int i = 0; i < _snake.size(); i++)
 		{
 			cs.Print(_snake[i].x, _snake[i].y, ' ');
 			_field[_snake[i].x][_snake[i].y] = FieldObject::None;
 		}
+	}
+
+	void RemovePreviousPositionEnemie(int index_enemie)
+	{
+		cs.Print(_enemies[index_enemie].x, _enemies[index_enemie].y, ' ');
+		_field[_enemies[index_enemie].x][_enemies[index_enemie].y] = FieldObject::None;
 	}
 
 	void DrawSnake()
@@ -144,11 +187,11 @@ private:
 		}
 	}
 
-	void DrawEnemie()
+	void DrawEnemies()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < _enemies.size(); i++)
 		{
-			cs.Print(_enemie[i].x, _enemie[i].y, kEnemieSymbol, Yellow);
+			cs.Print(_enemies[i].x, _enemies[i].y, kEnemieSymbol, Yellow);
 		}
 	}
 
@@ -160,6 +203,11 @@ private:
 	bool IsWal(Point position)
 	{
 		return (_field[position.x][position.y] == FieldObject::Wall);
+	}
+
+	bool IsEnimie(Point position)
+	{
+		return (_field[position.x][position.y] == FieldObject::Enemie);
 	}
 
 	bool IsSnake(Point position) const
@@ -199,6 +247,9 @@ private:
 				case FieldObject::Food:
 					cs.Print(i, j, kFoodSymbol, LightRed);
 					break;
+					//case FieldObject::Enemie:
+					//	cs.Print(i, j, kEnemieSymbol, Yellow);
+					//	break;
 				}
 			}
 		}
@@ -206,17 +257,9 @@ private:
 
 	void GenerateSnake()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < _min_size_snake; i++)
 		{
 			_snake.push_back({ 1 + i,_height / 2 });
-		}
-	}
-
-	void GenerateEnemie()
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			_enemie[i] = {i + 6,_height / 2 };
 		}
 	}
 
@@ -268,6 +311,12 @@ private:
 					if (count == 30)
 					{
 						_field[i][j] = FieldObject::Food;
+
+					}
+					if (count == 90)
+					{
+						_field[i][j] = FieldObject::Enemie;
+						_enemies.push_back({ i, j });
 						count = 0;
 					}
 					else
@@ -279,27 +328,30 @@ private:
 		}
 	}
 
-	
+
 
 
 	/*static const int _width = kWidth;
 	static const int _height = kHeight;*/
 
+	static const int _min_size_snake = 3;
+
 	static const int _width = 50;
 	static const int _height = 20;
 
 	std::vector<Point> _snake;
-	Point			   _enemie[3];
+	std::vector<Point> _enemies;
+
 	FieldObject _field[_width][_height] = {};
 
 	ConsoleHelper cs;
-	Point h{55, 0 };
+	Point h{ 55, 0 };
 	Score _score{ h };
-	
+
 
 	KeyCode _kd = KeyCode::down;
 	Point prev_position;
 
-	
+
 	bool _playBeep = false;
 };

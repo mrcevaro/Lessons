@@ -41,5 +41,8 @@
     <ClInclude Include="GamePlay.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="circlebuffrer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

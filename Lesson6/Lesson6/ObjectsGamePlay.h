@@ -19,7 +19,8 @@ enum class FieldObject
 	None = 0,
 	Wall = 1,
 	Food = 2,
-	Snake = 3
+	Snake = 3,
+	Enemie = 4
 };
 
 enum class KeyCode

@@ -3,6 +3,7 @@
 
 
 
+
 //1. Зафиксировать размеры карты и нарисовать на границах стену из #.
 //2. Не позволять звездочке выходить за границу.
 //2.5 При вверх  - есть бага
@@ -47,9 +48,13 @@ char RandomMove()
 }
 
 #include "Parallel.h"
+#include "circlebuffrer.h"
 
 int main()
 {
+	//f1();
+	//return 0;
+
 	//GamePlay<10,20> game;
 	GamePlay game;
 	std::thread keyboard_thread(&GamePlay::GetKey, &game);
