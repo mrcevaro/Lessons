@@ -25,6 +25,18 @@ enum  ConsoleColor {
 	White = 15
 };
 
+
+struct Point
+{
+	int x = 0;
+	int y = 0;
+};
+
+Point operator+(Point p1, Point p2)
+{
+	return Point{ p1.x + p2.x, p1.y + p2.y };
+}
+
 class ConsoleHelper
 {
 	HANDLE _console_handle;

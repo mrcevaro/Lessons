@@ -7,7 +7,7 @@
 #include <vector>
 #include <thread>
 #include "ObjectsGamePlay.h"
-#include "ConsoleHelper.h" 
+//#include "ConsoleHelper.h" 
 #include "Score.h"
 #include <mmsystem.h>
 //template <int kWidth, int kHeight>
@@ -58,6 +58,26 @@ public:
 
 	Point GetNewPositionEnemie(Point position)
 	{
+		static const Point kDeltas[] = 
+		{
+			{ -1, 0},
+			{ 1,  0},
+			{ 0,  1},
+			{ 0, -1}
+		};
+
+		const auto delta = kDeltas[std::rand() % std::size(kDeltas)];
+		return position + delta;
+
+		/*
+		switch (std::rand() % 4)
+		{
+			case 0: return { position.x,     position.y - 1 };
+			case 1: return { position.x - 1, position.y };
+			case 1: return { position.x - 1, position.y };
+			case 1: return { position.x - 1, position.y };
+		}
+
 		switch (std::rand() % 4)
 		{
 		case 0: position.y--; break;
@@ -68,6 +88,7 @@ public:
 			break;
 		}
 		return position;
+		*/
 	}
 
 
@@ -115,6 +136,8 @@ public:
 			_snake.push_back(_snake[_snake.size() - 1]);
 		}
 
+		// TODO. “ут не об€зательно занул€ть всю змею, а потом снова ее заполн€ть и рисовать
+		// ƒостаточно занулить хвост и добавить новую голову
 		RemovePreviousPositionSnake();
 		_snake[0] = new_position;
 		for (int i = _snake.size() - 1; i > 0; i--)
@@ -122,6 +145,10 @@ public:
 			_snake[i] = _snake[i - 1];
 			_field[_snake[i].x][_snake[i].y] = FieldObject::Snake;
 		}
+
+		//Remove(tail_pos);
+		//Add(new_pos, Snake);
+		
 
 		DrawSnake();
 	}
@@ -138,6 +165,9 @@ public:
 			if (_snake.size() > _min_size_snake)
 			{
 				_snake.pop_back();
+				_field[_snake[_snake.size() - 1].x][_snake[_snake.size() - 1].y] = FieldObject::None;
+				cs.Print(_snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y, ' ');
+				//DrawSnake();
 			}
 			else
 			{
@@ -147,17 +177,25 @@ public:
 
 		RemovePreviousPositionEnemie(index_enemie);
 		_enemies[index_enemie] = new_position;
-		DrawEnemies();
+		_field[new_position.x][new_position.y] = FieldObject::Enemie;
+		cs.Print(new_position.x, new_position.y, kEnemieSymbol, ConsoleColor::Yellow);
 	}
 
 	void Action()
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		MovementSnake(GetNewPosition(_snake[0]));
-
-		for (int i = 0; i < _enemies.size(); i++)
+		//std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		_tick++;
+		
+		if (_tick % 1000000 == 0)
 		{
-			MovementEnemie(i, GetNewPositionEnemie(_enemies[i]));
+			MovementSnake(GetNewPosition(_snake[0]));
+		}
+		if (_tick % 2000000 == 0)
+		{
+			for (int i = 0; i < _enemies.size(); i++)
+			{
+				MovementEnemie(i, GetNewPositionEnemie(_enemies[i]));
+			}
 		}
 	}
 
@@ -352,6 +390,6 @@ private:
 	KeyCode _kd = KeyCode::down;
 	Point prev_position;
 
-
+	unsigned int _tick = 0;
 	bool _playBeep = false;
 };

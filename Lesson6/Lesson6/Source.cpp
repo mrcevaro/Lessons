@@ -25,12 +25,14 @@
 // 1. Разнести логику по файликам
 // 2. В классе Score не рисовать стену, ит не принимать размеры поля. А принимать только точку куда писать.
 // 3. Заюзать енам Snake в поле
-
-// 4. Сделать кольцеовй массив
-// 5. Добавить врагов 
+// 4. Добавить врагов 
+// 5. Сделать так чтоб, если враг касается змейки, то он ее "режет"
 // 6. Добавить к змейке и врагам скорость
-// 7. Сделать так чтоб, если враг касается змейки, то он ее "режет"
+
+// 7. Сделать кольцеовй массив
 // 8. Сделать врагам более умную логику движения. Использовать алгоритм поиска наикратчайшего пути от врага до змеи.
+// 9. Сделать функции AddObject, RemoveObject, MoveObject - котоыре объединяют логику установки значаниея в _field и рисовнаия объекта.
+// 10. MovementSnake - в этой функции TODO
 
 char RandomMove()
 {
@@ -50,8 +52,56 @@ char RandomMove()
 #include "Parallel.h"
 #include "circlebuffrer.h"
 
+
+
+
+class B
+{
+	std::string s;
+	int a;
+	double b;
+	
+public:
+	static int objects_count;
+
+	B()
+	{
+		objects_count++;
+	}
+
+	~B()
+	{
+		objects_count--;
+	}
+
+};
+
+int B::objects_count = 0;
+
+
+struct A
+{
+	B b;
+	B b1;
+};
+
+
 int main()
 {
+	B b;
+	{
+		B b1;
+		B b2;
+		{
+			A a;
+			std::cout << B::objects_count << std::endl;
+		}
+
+		std::cout << B::objects_count << std::endl;
+	}
+
+	std::cout << B::objects_count << std::endl;
+
 	//f1();
 	//return 0;
 
@@ -68,3 +118,37 @@ int main()
 	//sound_thread.join();
 	std::system("pause");
 }
+
+void f(int& a)
+{
+	
+}
+
+void g()
+{
+	int r = 0;
+	f(r);
+	
+}
+
+class A
+{
+	int a;
+
+public:
+	void Draw();
+};
+
+class B
+{
+	A a1;
+	A a2;
+};
+
+void g()
+{
+	A a1;
+	A a2;
+
+}
+
