@@ -126,6 +126,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graph\Graph.h" />
     <ClInclude Include="Hashtable.h" />
     <ClInclude Include="SmartPointers.h" />
     <ClInclude Include="Sorts.h" />
